@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,8 @@ namespace Core.Entities.UserDependent.Experience
         public int ExperienceDutyID { get; set; }
         public string DutyID { get; set; } = default!;
         public int ExperienceID { get; set; }
+
+        public Experience Experience { get; set; } = default!;
+        public Duty Duty { get; set; } = default!;
     }
 }

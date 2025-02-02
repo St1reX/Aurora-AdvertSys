@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Entities.AdvertDependent;
+using Core.Entities.UserDependent.Experience;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +12,8 @@ namespace Core.Entities.Shared
     {
         public int DutyID { get; set; }
         public string DutyName { get; set; } = default!;
+
+        public ICollection<ExperienceDuty> ExperienceDuties { get; set; } = new List<ExperienceDuty>();
+        public ICollection<AdvertDuty> AdvertDuties { get; set; } = new List<AdvertDuty>();
     }
 }

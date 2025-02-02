@@ -10,5 +10,7 @@ namespace Core.Entities.UserDependent.Skill
     {
         public int SkillID { get; set; }
         public string Name { get; set; } = default!;
+
+        public ICollection<UserSkill> UserSkills { get; set; } = new List<UserSkill>();
     }
 }

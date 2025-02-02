@@ -12,5 +12,8 @@ namespace Core.Entities.UserDependent.Skill
         public int UserID { get; set; }
         public int SkillID { get; set; }
         public int SkillLevel { get; set; }
+
+        public User User { get; set; } = default!;
+        public Skill Skill { get; set; } = default!;
     }
 }

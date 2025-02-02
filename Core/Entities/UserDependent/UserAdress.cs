@@ -16,5 +16,7 @@ namespace Core.Entities.UserDependent
         public string Country { get; set; } = default!;
 
         public int UserID { get; set; }
+
+        public User User { get; set; } = default!;
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Entities.AdvertDependent;
+using Core.Entities.Shared.Company;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +17,11 @@ namespace Core.Entities.UserDependent.Experience
         public int PositionID { get; set; }
         public int CompanyID { get; set; }
         public int UserID { get; set; }
+
+        public Position Position { get; set; } = default!;
+        public Company Company { get; set; } = default!;
+        public User User { get; set; } = default!;
+
+        public ICollection<ExperienceDuty> ExperienceDuties{ get; set; } = new List<ExperienceDuty>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace Core.Entities.AdvertDependent
         public int AdvertDutyID { get; set; }
         public int DutyID { get; set; }
         public int AdvertID { get; set; }
+
+        public Duty Duty { get; set; } = default!;
     }
 }

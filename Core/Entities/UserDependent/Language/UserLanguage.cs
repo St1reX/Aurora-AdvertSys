@@ -12,5 +12,9 @@ namespace Core.Entities.UserDependent.Language
         public int LanguageID { get; set; } = default!;
         public int LanguageLevelID { get; set; } = default!;
         public int UserID { get; set; }
+
+        public Language Language { get; set; } = default!;
+        public LanguageLevel LanguageLevel { get; set; } = default!;
+        public User User { get; set; } = default!;
     }
 }

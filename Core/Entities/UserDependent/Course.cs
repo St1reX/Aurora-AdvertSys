@@ -15,5 +15,7 @@ namespace Core.Entities.UserDependent
         public DateTime EndDate { get; set; }
 
         public int UserID { get; set; }
+
+        public User User { get; set; } = default!;
     }
 }

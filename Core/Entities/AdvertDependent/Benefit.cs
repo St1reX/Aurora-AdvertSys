@@ -11,5 +11,7 @@ namespace Core.Entities.AdvertDependent
         public int BenefitID { get; set; }
         public string BenefitName { get; set; } = default!;
         public int AdvertID { get; set; }
+
+        public Advert Advert { get; set; } = default!;
     }
 }

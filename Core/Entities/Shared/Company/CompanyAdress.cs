@@ -16,5 +16,7 @@ namespace Core.Entities.Shared.Company
         public string Country { get; set; } = default!;
 
         public int CompanyID { get; set; }
+
+        public Company Company { get; set; } = default!;
     }
 }
