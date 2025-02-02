@@ -25,11 +25,11 @@ namespace Core.Entities
         public string CVPath { get; set; } = default!;
         public string WorkSummary { get; set; } = default!;
 
-        public int CurrentPositionID { get; set; }
-        public int CurrentCompanyID { get; set; }
+        public int PositionID { get; set; }
+        public int CompanyID { get; set; }
 
-        public Position CurrentPosition { get; set; } = default!;
-        public Company CurrentCompany { get; set; } = default!;
+        public Position Position { get; set; } = default!;
+        public Company Company { get; set; } = default!;
 
         public ICollection<UserLanguage> UserLanguages { get; set; } = new List<UserLanguage>();
         public ICollection<UserSkill> UserSkills { get; set; } = new List<UserSkill>();

@@ -12,7 +12,7 @@ namespace Core.Entities.Shared
         public int PositionID { get; set; }
         public string PositionName { get; set; } = default!;
 
-        ICollection<Advert> Adverts { get; set; } = new List<Advert>();
+        public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
 
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
         public ICollection<User> Users { get; set; } = new List<User>();

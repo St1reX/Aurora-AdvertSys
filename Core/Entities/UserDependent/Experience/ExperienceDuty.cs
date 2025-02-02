@@ -10,7 +10,7 @@ namespace Core.Entities.UserDependent.Experience
     public class ExperienceDuty
     {
         public int ExperienceDutyID { get; set; }
-        public string DutyID { get; set; } = default!;
+        public int DutyID { get; set; }
         public int ExperienceID { get; set; }
 
         public Experience Experience { get; set; } = default!;

@@ -17,7 +17,6 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Experie
             builder.Property(x => x.EndDate).IsRequired();
             builder.Property(x => x.UserID).IsRequired();
             builder.Property(x => x.CompanyID).IsRequired();
-            builder.Property(x => x.PositionID).IsRequired();
         }
     }
 }

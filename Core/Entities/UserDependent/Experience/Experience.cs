@@ -1,4 +1,5 @@
 ﻿using Core.Entities.AdvertDependent;
+using Core.Entities.Shared;
 using Core.Entities.Shared.Company;
 using System;
 using System.Collections.Generic;

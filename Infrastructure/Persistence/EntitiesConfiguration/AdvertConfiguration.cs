@@ -16,8 +16,8 @@ namespace Infrastructure.Persistence.EntitiesConfiguration
             builder.HasKey(x => x.AdvertID);
             builder.Property(x => x.AdvertDescription).IsRequired().HasMaxLength(500);
             builder.Property(x => x.CVMandatory).IsRequired();
-            builder.Property(x => x.MinSalary).IsRequired();
-            builder.Property(x => x.MaxSalary).IsRequired();
+            builder.Property(x => x.MinSalary).IsRequired().HasPrecision(7,2);
+            builder.Property(x => x.MaxSalary).IsRequired().HasPrecision(7, 2);
             builder.Property(x => x.WorkTimeFrom).IsRequired();
             builder.Property(x => x.WorkTimeTo).IsRequired();
             builder.Property(x => x.ExpirationDate).IsRequired();

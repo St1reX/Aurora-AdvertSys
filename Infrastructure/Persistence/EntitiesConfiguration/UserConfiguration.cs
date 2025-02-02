@@ -21,8 +21,8 @@ namespace Infrastructure.Persistence.EntitiesConfiguration
             builder.Property(x => x.ProfilePicturePath).HasMaxLength(255);
             builder.Property(x => x.CVPath).HasMaxLength(255);
             builder.Property(x => x.WorkSummary).HasMaxLength(500);
-            builder.Property(x => x.CurrentPositionID).IsRequired();
-            builder.Property(x => x.CurrentCompanyID).IsRequired();
+            builder.Property(x => x.PositionID).IsRequired();
+            builder.Property(x => x.CompanyID).IsRequired();
         }
     }
 }
