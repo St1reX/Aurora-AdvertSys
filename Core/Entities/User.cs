@@ -1,4 +1,5 @@
 ﻿using Core.Entities.AdvertDependent;
+using Core.Entities.Shared;
 using Core.Entities.Shared.Company;
 using Core.Entities.UserDependent;
 using Core.Entities.UserDependent.Education;
@@ -20,8 +21,8 @@ namespace Core.Entities
         public string LastName { get; set; } = default!;
         public string Email { get; set; } = default!;
         public string Password { get; set; } = default!;
-        public string ProfilePicture { get; set; } = default!;
-        public string CV { get; set; } = default!;
+        public string ProfilePicturePath { get; set; } = default!;
+        public string CVPath { get; set; } = default!;
         public string WorkSummary { get; set; } = default!;
 
         public int CurrentPositionID { get; set; }

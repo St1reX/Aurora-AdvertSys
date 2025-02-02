@@ -9,7 +9,7 @@ namespace Core.Entities.AdvertDependent
     public class EmploymentType
     {
         public int EmploymentTypeID { get; set; }
-        public string Name { get; set; } = default!;
+        public string EmploymentTypeName { get; set; } = default!;
 
         public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
     }

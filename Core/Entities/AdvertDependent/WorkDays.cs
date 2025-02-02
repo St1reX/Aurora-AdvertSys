@@ -9,7 +9,7 @@ namespace Core.Entities.AdvertDependent
     public class WorkDays
     {
         public int WorkDaysID { get; set; }
-        public string Name { get; set; } = default!;
+        public string WorkDaysName { get; set; } = default!;
 
         public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
     }

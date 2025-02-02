@@ -9,7 +9,7 @@ namespace Core.Entities.AdvertDependent
     public class WorkModel
     {
         public int WorkModelID { get; set; }
-        public string Name { get; set; } = default!;
+        public string WorkModelName { get; set; } = default!;
 
         public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
     }

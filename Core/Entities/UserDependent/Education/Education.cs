@@ -18,7 +18,7 @@ namespace Core.Entities.UserDependent.Education
         public int EduacationLevelID { get; set; }
         public int UserID { get; set; }
 
-        public EduacationLevel EduacationLevel { get; set; } = default!;
+        public EducationLevel EducationLevel { get; set; } = default!;
         public User User { get; set; } = default!;
     }
 }

@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Entities.AdvertDependent
+namespace Core.Entities.Shared
 {
     public class Position
     {
         public int PositionID { get; set; }
-        public string Name { get; set; } = default!;
+        public string PositionName { get; set; } = default!;
 
         ICollection<Advert> Adverts { get; set; } = new List<Advert>();
 

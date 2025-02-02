@@ -10,7 +10,7 @@ namespace Core.Entities.Shared.Company
     public class Company
     {
         public int CompanyID { get; set; }
-        public string Name { get; set; } = default!;
+        public string CompanyName { get; set; } = default!;
         public string Description { get; set; } = default!;
         public string Email { get; set; } = default!;
         public string Website { get; set; } = default!;

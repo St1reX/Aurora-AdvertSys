@@ -1,4 +1,5 @@
 ﻿using Core.Entities.AdvertDependent;
+using Core.Entities.Shared;
 using Core.Entities.Shared.Company;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Core.Entities
     public class Advert
     {
         public int AdvertID { get; set; }
-        public string? Description { get; set; }
+        public string? AdvertDescription { get; set; }
         public bool CVMandatory { get; set; }
         public decimal MinSalary { get; set; }
         public decimal MaxSalary { get; set; }

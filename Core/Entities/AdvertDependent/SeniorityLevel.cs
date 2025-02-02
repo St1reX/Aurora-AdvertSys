@@ -9,7 +9,7 @@ namespace Core.Entities.AdvertDependent
     public class SeniorityLevel
     {
         public int SeniorityLevelID { get; set; }
-        public string Name { get; set; } = default!;
+        public string SeniorityLevelName { get; set; } = default!;
 
         public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
     }
