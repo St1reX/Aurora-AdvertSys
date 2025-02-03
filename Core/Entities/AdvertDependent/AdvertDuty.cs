@@ -14,5 +14,6 @@ namespace Core.Entities.AdvertDependent
         public int AdvertID { get; set; }
 
         public Duty Duty { get; set; } = default!;
+        public Advert Advert { get; set; } = default!;
     }
 }

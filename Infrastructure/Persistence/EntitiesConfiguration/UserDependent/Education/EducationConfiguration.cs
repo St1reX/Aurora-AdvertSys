@@ -19,8 +19,13 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Educati
             builder.Property(e => e.FieldOfStudy).IsRequired().HasMaxLength(30);
             builder.Property(e => e.StartDate).IsRequired();
             builder.Property(e => e.EndDate).IsRequired();
-            builder.Property(e => e.EduacationLevelID).IsRequired();
+            builder.Property(e => e.EducationLevelID).IsRequired();
             builder.Property(e => e.UserID).IsRequired();
+
+            builder.HasOne(e => e.EducationLevel)
+                .WithMany(y => y.Educations)
+                .HasForeignKey(e => e.EducationLevelID)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

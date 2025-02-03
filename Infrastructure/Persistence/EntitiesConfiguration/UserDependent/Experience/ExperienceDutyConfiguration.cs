@@ -16,6 +16,16 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Experie
             builder.HasKey(x => x.ExperienceDutyID);
             builder.Property(x => x.ExperienceID).IsRequired();
             builder.Property(x => x.DutyID).IsRequired();
+
+            builder.HasOne(x => x.Experience)
+                .WithMany(y => y.ExperienceDuties)
+                .HasForeignKey(x => x.ExperienceID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Duty)
+                .WithMany(y => y.ExperienceDuties)
+                .HasForeignKey(x => x.DutyID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

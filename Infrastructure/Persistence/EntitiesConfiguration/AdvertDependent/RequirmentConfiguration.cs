@@ -15,6 +15,11 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.AdvertDependent
         {
             builder.HasKey(x => x.RequirmentID);
             builder.Property(x => x.RequirmentDescription).IsRequired().HasMaxLength(50);
+
+            builder.HasOne(x => x.Advert)
+                .WithMany(y => y.Requirments)
+                .HasForeignKey(x => x.AdvertID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Basic_Db_Without_Relations : Migration
+    public partial class ConfiguredEntitiesWithBasicRelationsTEST1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -208,26 +208,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdvertDuty",
-                columns: table => new
-                {
-                    AdvertDutyID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DutyID = table.Column<int>(type: "int", nullable: false),
-                    AdvertID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AdvertDuty", x => x.AdvertDutyID);
-                    table.ForeignKey(
-                        name: "FK_AdvertDuty_Duty_DutyID",
-                        column: x => x.DutyID,
-                        principalTable: "Duty",
-                        principalColumn: "DutyID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -251,13 +231,13 @@ namespace Infrastructure.Migrations
                         column: x => x.CompanyID,
                         principalTable: "Company",
                         principalColumn: "CompanyID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_User_Position_PositionID",
                         column: x => x.PositionID,
                         principalTable: "Position",
                         principalColumn: "PositionID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -297,43 +277,43 @@ namespace Infrastructure.Migrations
                         column: x => x.ContractTypeID,
                         principalTable: "ContractType",
                         principalColumn: "ContractTypeID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Advert_EmploymentType_EmploymentTypeID",
                         column: x => x.EmploymentTypeID,
                         principalTable: "EmploymentType",
                         principalColumn: "EmploymentTypeID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Advert_JobSector_JobSectorID",
                         column: x => x.JobSectorID,
                         principalTable: "JobSector",
                         principalColumn: "JobSectorID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Advert_Position_PositionID",
                         column: x => x.PositionID,
                         principalTable: "Position",
                         principalColumn: "PositionID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Advert_SeniorityLevel_SeniorityLevelID",
                         column: x => x.SeniorityLevelID,
                         principalTable: "SeniorityLevel",
                         principalColumn: "SeniorityLevelID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Advert_WorkDays_WorkDaysID",
                         column: x => x.WorkDaysID,
                         principalTable: "WorkDays",
                         principalColumn: "WorkDaysID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Advert_WorkModel_WorkModelID",
                         column: x => x.WorkModelID,
                         principalTable: "WorkModel",
                         principalColumn: "WorkModelID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -370,9 +350,8 @@ namespace Infrastructure.Migrations
                     FieldOfStudy = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EduacationLevelID = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    EducationLevelID = table.Column<int>(type: "int", nullable: false)
+                    EducationLevelID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -382,7 +361,7 @@ namespace Infrastructure.Migrations
                         column: x => x.EducationLevelID,
                         principalTable: "EducationLevel",
                         principalColumn: "EducationLevelID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Education_User_UserID",
                         column: x => x.UserID,
@@ -417,7 +396,7 @@ namespace Infrastructure.Migrations
                         column: x => x.PositionID,
                         principalTable: "Position",
                         principalColumn: "PositionID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Experience_User_UserID",
                         column: x => x.UserID,
@@ -488,13 +467,13 @@ namespace Infrastructure.Migrations
                         column: x => x.LanguageLevelID,
                         principalTable: "LanguageLevel",
                         principalColumn: "LanguageLevelID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserLanguage_Language_LanguageID",
                         column: x => x.LanguageID,
                         principalTable: "Language",
                         principalColumn: "LanguageID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserLanguage_User_UserID",
                         column: x => x.UserID,
@@ -521,13 +500,39 @@ namespace Infrastructure.Migrations
                         column: x => x.SkillID,
                         principalTable: "Skill",
                         principalColumn: "SkillID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserSkill_User_UserID",
                         column: x => x.UserID,
                         principalTable: "User",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AdvertDuty",
+                columns: table => new
+                {
+                    AdvertDutyID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DutyID = table.Column<int>(type: "int", nullable: false),
+                    AdvertID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdvertDuty", x => x.AdvertDutyID);
+                    table.ForeignKey(
+                        name: "FK_AdvertDuty_Advert_AdvertID",
+                        column: x => x.AdvertID,
+                        principalTable: "Advert",
+                        principalColumn: "AdvertID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AdvertDuty_Duty_DutyID",
+                        column: x => x.DutyID,
+                        principalTable: "Duty",
+                        principalColumn: "DutyID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -587,7 +592,7 @@ namespace Infrastructure.Migrations
                         column: x => x.DutyID,
                         principalTable: "Duty",
                         principalColumn: "DutyID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ExperienceDuty_Experience_ExperienceID",
                         column: x => x.ExperienceID,
@@ -635,6 +640,11 @@ namespace Infrastructure.Migrations
                 name: "IX_Advert_WorkModelID",
                 table: "Advert",
                 column: "WorkModelID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AdvertDuty_AdvertID",
+                table: "AdvertDuty",
+                column: "AdvertID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdvertDuty_DutyID",

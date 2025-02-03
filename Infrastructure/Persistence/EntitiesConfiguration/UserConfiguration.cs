@@ -23,6 +23,16 @@ namespace Infrastructure.Persistence.EntitiesConfiguration
             builder.Property(x => x.WorkSummary).HasMaxLength(500);
             builder.Property(x => x.PositionID).IsRequired();
             builder.Property(x => x.CompanyID).IsRequired();
+
+            builder.HasOne(x => x.Position)
+                .WithMany(y => y.Users)
+                .HasForeignKey(x => x.PositionID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Company)
+                .WithMany(y => y.Users)
+                .HasForeignKey(x => x.CompanyID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

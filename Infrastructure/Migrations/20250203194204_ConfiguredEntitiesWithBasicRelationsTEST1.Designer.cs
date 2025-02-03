@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuroraDbContext))]
-    [Migration("20250202220309_Basic_Db_Without_Relations")]
-    partial class Basic_Db_Without_Relations
+    [Migration("20250203194204_ConfiguredEntitiesWithBasicRelationsTEST1")]
+    partial class ConfiguredEntitiesWithBasicRelationsTEST1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,6 +121,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("AdvertDutyID");
+
+                    b.HasIndex("AdvertID");
 
                     b.HasIndex("DutyID");
 
@@ -497,9 +499,6 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("EduacationLevelID")
-                        .HasColumnType("int");
-
                     b.Property<int>("EducationLevelID")
                         .HasColumnType("int");
 
@@ -782,62 +781,86 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Advert", b =>
                 {
-                    b.HasOne("Core.Entities.Shared.Company.Company", null)
+                    b.HasOne("Core.Entities.Shared.Company.Company", "Company")
                         .WithMany("Adverts")
                         .HasForeignKey("CompanyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.AdvertDependent.ContractType", null)
+                    b.HasOne("Core.Entities.AdvertDependent.ContractType", "ContractType")
                         .WithMany("Adverts")
                         .HasForeignKey("ContractTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.AdvertDependent.EmploymentType", null)
+                    b.HasOne("Core.Entities.AdvertDependent.EmploymentType", "EmploymentType")
                         .WithMany("Adverts")
                         .HasForeignKey("EmploymentTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.AdvertDependent.JobSector", null)
+                    b.HasOne("Core.Entities.AdvertDependent.JobSector", "JobSector")
                         .WithMany("Adverts")
                         .HasForeignKey("JobSectorID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Shared.Position", null)
+                    b.HasOne("Core.Entities.Shared.Position", "Position")
                         .WithMany("Adverts")
                         .HasForeignKey("PositionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.AdvertDependent.SeniorityLevel", null)
+                    b.HasOne("Core.Entities.AdvertDependent.SeniorityLevel", "SeniorityLevel")
                         .WithMany("Adverts")
                         .HasForeignKey("SeniorityLevelID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.AdvertDependent.WorkDays", null)
+                    b.HasOne("Core.Entities.AdvertDependent.WorkDays", "WorkDays")
                         .WithMany("Adverts")
                         .HasForeignKey("WorkDaysID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.AdvertDependent.WorkModel", null)
+                    b.HasOne("Core.Entities.AdvertDependent.WorkModel", "WorkModel")
                         .WithMany("Adverts")
                         .HasForeignKey("WorkModelID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("ContractType");
+
+                    b.Navigation("EmploymentType");
+
+                    b.Navigation("JobSector");
+
+                    b.Navigation("Position");
+
+                    b.Navigation("SeniorityLevel");
+
+                    b.Navigation("WorkDays");
+
+                    b.Navigation("WorkModel");
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.AdvertDuty", b =>
                 {
+                    b.HasOne("Core.Entities.Advert", "Advert")
+                        .WithMany("AdvertDuties")
+                        .HasForeignKey("AdvertID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Core.Entities.Shared.Duty", "Duty")
                         .WithMany("AdvertDuties")
                         .HasForeignKey("DutyID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Advert");
 
                     b.Navigation("Duty");
                 });
@@ -845,7 +868,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.AdvertDependent.Benefit", b =>
                 {
                     b.HasOne("Core.Entities.Advert", "Advert")
-                        .WithMany()
+                        .WithMany("Benefits")
                         .HasForeignKey("AdvertID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -856,7 +879,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.AdvertDependent.Requirment", b =>
                 {
                     b.HasOne("Core.Entities.Advert", "Advert")
-                        .WithMany()
+                        .WithMany("Requirments")
                         .HasForeignKey("AdvertID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -880,13 +903,13 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.Shared.Company.Company", "Company")
                         .WithMany("Users")
                         .HasForeignKey("CompanyID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Shared.Position", "Position")
                         .WithMany("Users")
                         .HasForeignKey("PositionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -910,7 +933,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.UserDependent.Education.EducationLevel", "EducationLevel")
                         .WithMany("Educations")
                         .HasForeignKey("EducationLevelID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.User", "User")
@@ -935,7 +958,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.Shared.Position", "Position")
                         .WithMany("Experiences")
                         .HasForeignKey("PositionID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.User", "User")
@@ -956,7 +979,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.Shared.Duty", "Duty")
                         .WithMany("ExperienceDuties")
                         .HasForeignKey("DutyID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.UserDependent.Experience.Experience", "Experience")
@@ -975,13 +998,13 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.UserDependent.Language.Language", "Language")
                         .WithMany("UserLanguages")
                         .HasForeignKey("LanguageID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.UserDependent.Language.LanguageLevel", "LanguageLevel")
                         .WithMany("UserLanguages")
                         .HasForeignKey("LanguageLevelID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.User", "User")
@@ -1013,7 +1036,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.UserDependent.Skill.Skill", "Skill")
                         .WithMany("UserSkills")
                         .HasForeignKey("SkillID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.User", "User")
@@ -1036,6 +1059,15 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Core.Entities.Advert", b =>
+                {
+                    b.Navigation("AdvertDuties");
+
+                    b.Navigation("Benefits");
+
+                    b.Navigation("Requirments");
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.ContractType", b =>

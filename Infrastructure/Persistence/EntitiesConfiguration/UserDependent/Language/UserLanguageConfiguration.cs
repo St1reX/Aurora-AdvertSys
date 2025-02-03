@@ -17,6 +17,16 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Languag
             builder.Property(x => x.LanguageID).IsRequired();
             builder.Property(x => x.UserID).IsRequired();
             builder.Property(x => x.LanguageLevelID).IsRequired();
+
+            builder.HasOne(x => x.Language)
+                .WithMany(y => y.UserLanguages)
+                .HasForeignKey(x => x.LanguageID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.LanguageLevel)
+                .WithMany(y => y.UserLanguages)
+                .HasForeignKey(x => x.LanguageLevelID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

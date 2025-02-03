@@ -30,17 +30,17 @@ namespace Core.Entities
         public int WorkModelID { get; set; }
         public int WorkDaysID { get; set; }
 
-        JobSector JobSector { get; set; } = default!;
-        SeniorityLevel SeniorityLevel { get; set; } = default!;
-        ContractType ContractType { get; set; } = default!;
-        EmploymentType EmploymentType { get; set; } = default!;
-        WorkModel WorkModel { get; set; } = default!;
-        WorkDays WorkDays { get; set; } = default!;
-        Position Position { get; set; } = default!;
-        Company Company { get; set; } = default!;
+        public JobSector JobSector { get; set; } = default!;
+        public SeniorityLevel SeniorityLevel { get; set; } = default!;
+        public ContractType ContractType { get; set; } = default!;
+        public EmploymentType EmploymentType { get; set; } = default!;
+        public WorkModel WorkModel { get; set; } = default!;
+        public WorkDays WorkDays { get; set; } = default!;
+        public Position Position { get; set; } = default!;
+        public Company Company { get; set; } = default!;
 
-        ICollection<Benefit> Benefits { get; set; } = new List<Benefit>();
-        ICollection<Requirment> Requirments { get; set; } = new List<Requirment>();
-        ICollection<AdvertDuty> AdvertDuties { get; set; } = new List<AdvertDuty>();
+        public ICollection<Benefit> Benefits { get; set; } = new List<Benefit>();
+        public ICollection<Requirment> Requirments { get; set; } = new List<Requirment>();
+        public ICollection<AdvertDuty> AdvertDuties { get; set; } = new List<AdvertDuty>();
     }
 }

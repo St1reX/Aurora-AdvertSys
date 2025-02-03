@@ -30,6 +30,48 @@ namespace Infrastructure.Persistence.EntitiesConfiguration
             builder.Property(x => x.EmploymentTypeID).IsRequired();
             builder.Property(x => x.WorkModelID).IsRequired();
             builder.Property(x => x.WorkDaysID).IsRequired();
+
+            builder.HasOne(x => x.JobSector)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.JobSectorID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.SeniorityLevel)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.SeniorityLevelID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.ContractType)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.ContractTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.EmploymentType)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.EmploymentTypeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.WorkModel)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.WorkModelID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.WorkDays)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.WorkDaysID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Position)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.PositionID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Company)
+                .WithMany(y => y.Adverts)
+                .HasForeignKey(x => x.CompanyID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

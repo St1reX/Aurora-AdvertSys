@@ -26,10 +26,10 @@ namespace Core.Entities
         public string WorkSummary { get; set; } = default!;
 
         public int PositionID { get; set; }
-        public int CompanyID { get; set; }
+        public int? CompanyID { get; set; }
 
         public Position Position { get; set; } = default!;
-        public Company Company { get; set; } = default!;
+        public Company? Company { get; set; }
 
         public ICollection<UserLanguage> UserLanguages { get; set; } = new List<UserLanguage>();
         public ICollection<UserSkill> UserSkills { get; set; } = new List<UserSkill>();

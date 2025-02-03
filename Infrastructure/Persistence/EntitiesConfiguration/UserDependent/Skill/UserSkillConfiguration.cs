@@ -17,6 +17,11 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Skill
             builder.Property(x => x.SkillID).IsRequired();
             builder.Property(x => x.UserID).IsRequired();
             builder.Property(x => x.SkillLevel).IsRequired().HasMaxLength(15);
+
+            builder.HasOne(x => x.Skill)
+                .WithMany(y => y.UserSkills)
+                .HasForeignKey(x => x.SkillID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
