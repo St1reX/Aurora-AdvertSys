@@ -13,7 +13,7 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Skill
         public void Configure(EntityTypeBuilder<Core.Entities.UserDependent.Skill.Skill> builder)
         {
             builder.HasKey(x => x.SkillID);
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(30);
+            builder.Property(x => x.SkillName).IsRequired().HasMaxLength(30);
         }
     }
 }

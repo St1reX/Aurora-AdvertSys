@@ -13,7 +13,7 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Languag
         public void Configure(EntityTypeBuilder<Core.Entities.UserDependent.Language.Language> builder)
         {
             builder.HasKey(x => x.LanguageID);
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(30);
+            builder.Property(x => x.LanguageName).IsRequired().HasMaxLength(30);
         }
     }
 }

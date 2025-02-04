@@ -9,7 +9,7 @@ namespace Core.Entities.UserDependent.Language
     public class Language
     {
         public int LanguageID { get; set; }
-        public string Name { get; set; } = default!;
+        public string LanguageName { get; set; } = default!;
 
         public ICollection<UserLanguage> UserLanguages { get; set; } = new List<UserLanguage>();
     }
