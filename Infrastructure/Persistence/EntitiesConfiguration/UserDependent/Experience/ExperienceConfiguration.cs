@@ -16,12 +16,16 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent.Experie
             builder.Property(x => x.StartDate).IsRequired();
             builder.Property(x => x.EndDate).IsRequired();
             builder.Property(x => x.UserID).IsRequired();
-            builder.Property(x => x.CompanyID).IsRequired();
 
             builder.HasOne(x => x.Position)
                 .WithMany(y => y.Experiences)
                 .HasForeignKey(x => x.PositionID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Company)
+                .WithMany(y => y.Experiences)
+                .HasForeignKey(x => x.CompanyID)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

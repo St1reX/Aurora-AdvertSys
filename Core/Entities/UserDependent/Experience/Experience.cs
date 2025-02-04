@@ -16,11 +16,11 @@ namespace Core.Entities.UserDependent.Experience
         public DateTime EndDate { get; set; }
 
         public int PositionID { get; set; }
-        public int CompanyID { get; set; }
+        public int? CompanyID { get; set; }
         public int UserID { get; set; }
 
         public Position Position { get; set; } = default!;
-        public Company Company { get; set; } = default!;
+        public Company? Company { get; set; } = default!;
         public User User { get; set; } = default!;
 
         public ICollection<ExperienceDuty> ExperienceDuties{ get; set; } = new List<ExperienceDuty>();
