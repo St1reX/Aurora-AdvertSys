@@ -27,9 +27,18 @@ namespace Infrastructure.Persistence.Seeders
         {
             if (await dbContext.Database.CanConnectAsync())
             {
-                await new SharedSeeder(dbContext).Seed();
-                await new UserDependentSeeder(dbContext).Seed();
-                await new AdvertDependentSeeder(dbContext).Seed();
+                if(!dbContext.Advert.Any())
+                {
+                    await new SharedSeeder(dbContext).Seed();
+                    await new UserDependentSeeder(dbContext).Seed();
+                    await new AdvertDependentSeeder(dbContext).Seed();
+                    await new MainEntitiesSeeder(dbContext).Seed();
+                }
+                else
+                {
+                    Console.WriteLine("Already seeded. Skipping process...");
+                }
+                
             }
 
             await dbContext.SaveChangesAsync();

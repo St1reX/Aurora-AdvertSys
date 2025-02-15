@@ -36,9 +36,33 @@ namespace Infrastructure.Persistence.Seeders
                 dbContext.User.Add(defaultUser);
             }
 
-            //TODO: Rethink problem with FK keys when seeding
+            if (!dbContext.Advert.Any())
+            {
+                var defaultAdvert = new Core.Entities.Advert()
+                {
+                    AdvertDescription = "We are looking for a software developer",
+                    CVMandatory = true,
+                    MinSalary = 5000,
+                    MaxSalary = 10000,
+                    WorkTimeFrom = new TimeOnly(8, 0),
+                    WorkTimeTo = new TimeOnly(16, 0),
+                    ExpirationDate = new DateOnly(2022, 12, 31),
+                    ApplicationAmount = 10,
+                    CompanyID = 1,
+                    PositionID = 1,
+                    JobSectorID = 1,
+                    SeniorityLevelID = 1,
+                    ContractTypeID = 1,
+                    EmploymentTypeID = 1,
+                    WorkModelID = 1,
+                    WorkDaysID = 1
+                };
+                dbContext.Advert.Add(defaultAdvert);
 
-            await dbContext.SaveChangesAsync();
+                //TODO: Rethink problem with FK keys when seeding
+
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }

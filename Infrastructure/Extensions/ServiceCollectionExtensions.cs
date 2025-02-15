@@ -1,5 +1,7 @@
-﻿using Infrastructure.Persistence;
+﻿using Core.Interfaces;
+using Infrastructure.Persistence;
 using Infrastructure.Persistence.Seeders;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ namespace Infrastructure.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("Aurora")));
             
             services.AddScoped<AuroraBasicSeeder>();
+            services.AddScoped<IAdvert, AdvertRepository>();
         }
     }
 }
