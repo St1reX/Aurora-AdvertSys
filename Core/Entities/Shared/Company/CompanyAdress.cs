@@ -14,6 +14,8 @@ namespace Core.Entities.Shared.Company
         public string City { get; set; } = default!;
         public string Region { get; set; } = default!;
         public string Country { get; set; } = default!;
+        public string Longitude { get; set; } = default!;
+        public string Latitude { get; set; } = default!;
 
         public int CompanyID { get; set; }
 

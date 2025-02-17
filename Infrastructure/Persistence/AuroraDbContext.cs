@@ -49,6 +49,7 @@ namespace Infrastructure.Persistence
         public DbSet<Core.Entities.UserDependent.Course> Course { get; set; }
         public DbSet<Core.Entities.UserDependent.UserAdress> UserAdress { get; set; }
         public DbSet<Core.Entities.UserDependent.Link> Link { get; set; }
+        public DbSet<Core.Entities.UserDependent.FilteredLocationsCache> AdvertFilterLocationQueryCache { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

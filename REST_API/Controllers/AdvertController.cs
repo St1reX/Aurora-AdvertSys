@@ -1,5 +1,4 @@
 ﻿using Application.Advert.Queries.GetAllAdverts;
-using Application.Advert.Queries.GetTopAdverts;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -46,29 +45,7 @@ namespace REST_API.Controllers
             )
         {
             //TODO: Implement filtering by location(API) and convert system to DTO filtering model
-            if (!offset.HasValue || !amount.HasValue)
-            {
-                return BadRequest(new { Message = "The parameters offset and amount are required." });
-            }
-
-            if (offset < 0 || amount <= 0)
-            {
-                return BadRequest(new { Message = "Offset can not be negative and amount has to be greater than 0." });
-            }
-
-            if (amount > 50)
-            {
-                return BadRequest(new { Message = "Amount can not be greater than 50 due to server optimalization." });
-            }
-
-            var adverts = await mediator.Send(new GetTopAdvertsQuery(amount.Value, offset.Value));
-
-            if (adverts == null || !adverts.Any())
-            {
-                return NotFound();
-            }
-
-            return Ok(JsonSerializer.Serialize(adverts));
+            return Ok();
         }
 
 
