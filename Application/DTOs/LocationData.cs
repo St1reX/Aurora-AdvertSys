@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Entities.UserDependent
+namespace Application.DTOs
 {
-    public class FilteredLocationsCache
+    public class LocationData
     {
-        public int LocationCacheID { get; set; }
-        public string Location { get; set; } = default!;
         public string Longitude { get; set; } = default!;
         public string Latitude { get; set; } = default!;
     }

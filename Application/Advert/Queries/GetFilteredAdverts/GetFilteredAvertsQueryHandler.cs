@@ -12,7 +12,7 @@ namespace Application.Advert.Queries.GetFilteredAdverts
     {
         public Task<ICollection<AdvertDTO?>> Handle(GetFilteredAdvertsQuery request, CancellationToken cancellationToken)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

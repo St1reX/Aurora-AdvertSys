@@ -1,11 +1,6 @@
 ﻿using Core.Entities.AdvertDependent;
 using Core.Entities.Shared;
 using Core.Entities.Shared.Company;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Entities
 {
@@ -29,15 +24,18 @@ namespace Core.Entities
         public int EmploymentTypeID { get; set; }
         public int WorkModelID { get; set; }
         public int WorkDaysID { get; set; }
+        public int AdvertAdressID { get; set; }
 
+
+        public Position Position { get; set; } = default!;
+        public Company Company { get; set; } = default!;
         public JobSector JobSector { get; set; } = default!;
         public SeniorityLevel SeniorityLevel { get; set; } = default!;
         public ContractType ContractType { get; set; } = default!;
         public EmploymentType EmploymentType { get; set; } = default!;
         public WorkModel WorkModel { get; set; } = default!;
         public WorkDays WorkDays { get; set; } = default!;
-        public Position Position { get; set; } = default!;
-        public Company Company { get; set; } = default!;
+        public Adress AdvertAdress { get; set; } = default!;
 
         public ICollection<Benefit> Benefits { get; set; } = new List<Benefit>();
         public ICollection<Requirment> Requirments { get; set; } = new List<Requirment>();

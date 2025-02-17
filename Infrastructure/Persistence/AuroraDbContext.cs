@@ -34,7 +34,7 @@ namespace Infrastructure.Persistence
         public DbSet<Core.Entities.Shared.Position> Position { get; set; }
         public DbSet<Core.Entities.Shared.Duty> Duty { get; set; }
         public DbSet<Core.Entities.Shared.Company.Company> Company { get; set; }
-        public DbSet<Core.Entities.Shared.Company.CompanyAdress> CompanyAdress { get; set; }
+        public DbSet<Core.Entities.Shared.Adress> Adress { get; set; }
 
         //USER DEPENDENT ENTITIES
         public DbSet<Core.Entities.UserDependent.Education.Education> Education { get; set; }
@@ -47,9 +47,8 @@ namespace Infrastructure.Persistence
         public DbSet<Core.Entities.UserDependent.Skill.Skill> Skill { get; set; }
         public DbSet<Core.Entities.UserDependent.Skill.UserSkill> UserSkill { get; set; }
         public DbSet<Core.Entities.UserDependent.Course> Course { get; set; }
-        public DbSet<Core.Entities.UserDependent.UserAdress> UserAdress { get; set; }
         public DbSet<Core.Entities.UserDependent.Link> Link { get; set; }
-        public DbSet<Core.Entities.UserDependent.FilteredLocationsCache> AdvertFilterLocationQueryCache { get; set; }
+        public DbSet<Core.Entities.UserDependent.CachedFilteredLocation> AdvertFilterLocationCached { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

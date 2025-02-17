@@ -1,4 +1,5 @@
-﻿using Application.Advert.Queries.GetAllAdverts;
+﻿using Application.Advert.DTOs;
+using Application.Advert.Queries.GetAllAdverts;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,16 +35,31 @@ namespace REST_API.Controllers
 
         [HttpGet("filter")]
         public async Task<IActionResult> GetFiltered(
-            [FromQuery] int? amount, 
-            [FromQuery] int? offset,
-            [FromQuery] bool? cvMandatory,
-            [FromQuery] string? companyName, 
-            [FromQuery] string? positionName,
-            [FromQuery] string? seniorityLevelName,
-            [FromQuery] decimal? minSalary,
-            [FromQuery] decimal? maxSalary
+            //[FromBodyAttribute] int? amount, 
+            //[FromBodyAttribute] int? offset,
+            //[FromBodyAttribute] bool? cvMandatory,
+            //[FromBodyAttribute] string? companyName, 
+            //[FromBodyAttribute] string? positionName,
+            //[FromBodyAttribute] string? seniorityLevelName,
+            //[FromBodyAttribute] decimal? minSalary,
+            //[FromBodyAttribute] decimal? maxSalary
             )
         {
+            //var AdvertFilter = new AdvertFilterDTO
+            //{
+            //    Amount = amount,
+            //    Offset = offset,
+            //    CvMandatory = cvMandatory,
+            //    CompanyName = companyName,
+            //    PositionName = positionName,
+            //    SeniorityLevelName = seniorityLevelName,
+            //    MinSalary = minSalary,
+            //    MaxSalary = maxSalary
+            //};
+
+            //var adverts = await mediator.Send(new GetFilteredAdvertsQuery(AdvertFilter));
+
+
             //TODO: Implement filtering by location(API) and convert system to DTO filtering model
             return Ok();
         }

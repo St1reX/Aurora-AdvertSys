@@ -1,4 +1,5 @@
 ﻿using Application.Advert.DTOs;
+using Application.DTOs;
 using Core.Entities.UserDependent;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace Application.Services
 {
     public interface ILocationService
     {
-        Task<FilteredLocationsCache> GetCoordinates();
+        Task<LocationData> GetCoordinates();
     }
 }

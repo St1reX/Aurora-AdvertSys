@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.DTOs;
+using Application.Services;
 using Core.Entities.UserDependent;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -20,9 +21,9 @@ namespace Infrastructure.Services
             _apiKey = configuration["GoogleApi:ApiKey"]!;
         }
 
-        public Task<FilteredLocationsCache> GetCoordinates()
+        Task<LocationData> ILocationService.GetCoordinates()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

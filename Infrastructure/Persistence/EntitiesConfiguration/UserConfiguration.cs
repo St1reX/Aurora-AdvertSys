@@ -32,6 +32,11 @@ namespace Infrastructure.Persistence.EntitiesConfiguration
                 .WithMany(y => y.Users)
                 .HasForeignKey(x => x.CompanyID)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(x => x.UserAdress)
+                .WithMany(y => y.Users)
+                .HasForeignKey(x => x.UserAdressID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
