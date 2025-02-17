@@ -12,7 +12,7 @@ namespace Core.Entities.Shared.Company
 
 
         public int CompanyAdressID { get; set; }
-        public Adress CompanyAdress { get; set; } = default!;
+        public Address CompanyAdress { get; set; } = default!;
 
 
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();

@@ -12,6 +12,6 @@ namespace Core.Entities.UserDependent
         public int CachedLocationID { get; set; }
 
         public int CachedAdressID { get; set; }
-        public Adress CachedAdress { get; set; } = default!;
+        public Address CachedAdress { get; set; } = default!;
     }
 }

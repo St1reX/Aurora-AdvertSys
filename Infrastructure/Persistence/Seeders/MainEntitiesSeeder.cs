@@ -30,7 +30,8 @@ namespace Infrastructure.Persistence.Seeders
                     CVPath = "cv.pdf",
                     WorkSummary = "I am a software developer",
                     PositionID = 1,
-                    CompanyID = 1
+                    CompanyID = 1,
+                    UserAdressID = 1
                 };
 
                 dbContext.User.Add(defaultUser);
@@ -55,7 +56,8 @@ namespace Infrastructure.Persistence.Seeders
                     ContractTypeID = 1,
                     EmploymentTypeID = 1,
                     WorkModelID = 1,
-                    WorkDaysID = 1
+                    WorkDaysID = 1,
+                    AdvertAdressID = 1
                 };
                 dbContext.Advert.Add(defaultAdvert);
 

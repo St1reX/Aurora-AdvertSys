@@ -1,4 +1,7 @@
 ﻿using Application.Advert.DTOs;
+using AutoMapper;
+using Core.Helpers;
+using Core.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,11 +11,27 @@ using System.Threading.Tasks;
 
 namespace Application.Advert.Queries.GetFilteredAdverts
 {
-    internal class GetFilteredAvertsQueryHandler : IRequestHandler<GetFilteredAdvertsQuery, ICollection<AdvertDTO?>>
+    public class GetFilteredAvertsQueryHandler : IRequestHandler<GetFilteredAdvertsQuery, ICollection<AdvertDTO>?>
     {
-        public Task<ICollection<AdvertDTO?>> Handle(GetFilteredAdvertsQuery request, CancellationToken cancellationToken)
+
+        private readonly IAdvert advert;
+        private readonly IMapper mapper;
+
+        public GetFilteredAvertsQueryHandler(IAdvert advert, IMapper mapper)
         {
-            throw new NotImplementedException();
+            this.advert = advert;
+            this.mapper = mapper;
+        }
+
+        public async Task<ICollection<AdvertDTO>?> Handle(GetFilteredAdvertsQuery request, CancellationToken cancellationToken)
+        {
+            var filter = mapper.Map<AdvertFilter>(request);
+
+            var adverts = await advert.GetFiltered(filter);
+
+            var advertDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
+
+            return advertDTO;
         }
     }
 }

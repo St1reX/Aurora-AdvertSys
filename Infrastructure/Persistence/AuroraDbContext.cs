@@ -34,7 +34,7 @@ namespace Infrastructure.Persistence
         public DbSet<Core.Entities.Shared.Position> Position { get; set; }
         public DbSet<Core.Entities.Shared.Duty> Duty { get; set; }
         public DbSet<Core.Entities.Shared.Company.Company> Company { get; set; }
-        public DbSet<Core.Entities.Shared.Adress> Adress { get; set; }
+        public DbSet<Core.Entities.Shared.Address> Address { get; set; }
 
         //USER DEPENDENT ENTITIES
         public DbSet<Core.Entities.UserDependent.Education.Education> Education { get; set; }

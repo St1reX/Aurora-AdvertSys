@@ -1,5 +1,5 @@
-﻿using Application.Advert.DTOs;
-using Application.DTOs;
+﻿using Application.Adress.DTOs;
+using Application.Advert.DTOs;
 using Core.Entities.UserDependent;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,6 @@ namespace Application.Services
 {
     public interface ILocationService
     {
-        Task<LocationData> GetCoordinates();
+        Task<AddressDTO?> GetCoordinatesAsync(string adress);
     }
 }

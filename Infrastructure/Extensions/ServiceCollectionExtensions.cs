@@ -21,12 +21,14 @@ namespace Infrastructure.Extensions
         {
             services.AddDbContext<AuroraDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Aurora")));
+
+            services.AddHttpClient();
             
             services.AddScoped<AuroraBasicSeeder>();
 
 
             services.AddScoped<IAdvert, AdvertRepository>();
-           // services.AddScoped<ILocationService, GoogleMapsService>();
+            services.AddScoped<ILocationService, GoogleMapsService>();
         }
     }
 }

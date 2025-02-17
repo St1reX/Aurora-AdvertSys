@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Advert\Commands\" />
+    <Folder Include="DTOs\" />
   </ItemGroup>
 
 </Project>

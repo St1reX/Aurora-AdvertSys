@@ -38,17 +38,33 @@ namespace Infrastructure.Persistence.Seeders
                 dbContext.Duty.Add(defaultDuty);
             }
 
-            if (!dbContext.Company.Any())
+            if (!dbContext.Address.Any())
             {
-                var defaultCompany = new Company()
+                var defaultAdress = new Address()
                 {
-                    CompanyName = "Aurora",
-                    Description = "Aurora is a software development company.",
-                    Email = "aurora@gmail.com",
-                    Website = "aurora.com"
+                    StreetNumber = "7",
+                    Street = "Konopnickiej",
+                    City = "Limanowa",
+                    Region = "Małopolskie",
+                    Country = "Poland",
+                    Latitude = "49.708170",
+                    Longitude = "20.422075"
                 };
-                dbContext.Company.Add(defaultCompany);
+                dbContext.Address.Add(defaultAdress);
             }
+
+            //if (!dbContext.Company.Any())
+            //{
+            //    var defaultCompany = new Company()
+            //    {
+            //        CompanyName = "Aurora",
+            //        Description = "Aurora is a software development company.",
+            //        Email = "aurora@gmail.com",
+            //        Website = "aurora.com",
+            //        CompanyAdressID = 1
+            //    };
+            //    dbContext.Company.Add(defaultCompany);
+            //}
 
             await dbContext.SaveChangesAsync();
         }

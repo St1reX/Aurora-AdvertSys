@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Core.Interfaces
     public interface IAdvert
     {
         Task<ICollection<Advert>?> GetAll(); 
-        Task<ICollection<Advert>?> GetRange(int amount, int offset);
+        Task<ICollection<Advert>?> GetFiltered(AdvertFilter advertFilter);
     }
 }

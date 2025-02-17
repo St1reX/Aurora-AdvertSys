@@ -35,7 +35,7 @@ namespace Core.Entities
         public EmploymentType EmploymentType { get; set; } = default!;
         public WorkModel WorkModel { get; set; } = default!;
         public WorkDays WorkDays { get; set; } = default!;
-        public Adress AdvertAdress { get; set; } = default!;
+        public Address AdvertAdress { get; set; } = default!;
 
         public ICollection<Benefit> Benefits { get; set; } = new List<Benefit>();
         public ICollection<Requirment> Requirments { get; set; } = new List<Requirment>();

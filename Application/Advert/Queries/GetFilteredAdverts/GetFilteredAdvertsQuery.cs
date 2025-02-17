@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Advert.Queries.GetFilteredAdverts
 {
-    internal class GetFilteredAdvertsQuery : AdvertFilterDTO, IRequest<ICollection<AdvertDTO?>>
+    public class GetFilteredAdvertsQuery : AdvertFilterDTO, IRequest<ICollection<AdvertDTO?>>
     {
     }
 }

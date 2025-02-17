@@ -25,7 +25,7 @@ namespace Core.Entities
 
         public Position Position { get; set; } = default!;
         public Company? Company { get; set; }
-        public Adress UserAdress { get; set; } = default!;
+        public Address UserAdress { get; set; } = default!;
 
         public ICollection<UserLanguage> UserLanguages { get; set; } = new List<UserLanguage>();
         public ICollection<UserSkill> UserSkills { get; set; } = new List<UserSkill>();

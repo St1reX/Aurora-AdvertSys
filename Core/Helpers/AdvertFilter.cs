@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Advert.DTOs
+namespace Core.Helpers
 {
-    public class AdvertFilterDTO
+    public class AdvertFilter
     {
-
         public int? Amount { get; set; }
         public int? Offset { get; set; }
         public bool? CVMandatory { get; set; }
@@ -21,4 +19,3 @@ namespace Application.Advert.DTOs
         public string? Location { get; set; }
     }
 }
- 

@@ -16,6 +16,9 @@ namespace Application.Advert
                 .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Company.CompanyName))
                 .ForMember(dest => dest.PositionName, opt => opt.MapFrom(src => src.Position.PositionName))
                 .ForMember(dest => dest.SeniorityLevelName, opt => opt.MapFrom(src => src.SeniorityLevel.SeniorityLevelName));
+
+            CreateMap<DTOs.AdvertFilterDTO, Core.Helpers.AdvertFilter>()
+                .ReverseMap();
         }
     }
 }

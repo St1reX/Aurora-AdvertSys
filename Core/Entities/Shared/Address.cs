@@ -2,12 +2,12 @@
 
 namespace Core.Entities.Shared
 {
-    public class Adress
+    public class Address
     {
         public int AdressID { get; set; }
-        public string StreetNumber { get; set; } = default!;
-        public string Street { get; set; } = default!;
-        public string City { get; set; } = default!;
+        public string? StreetNumber { get; set; }
+        public string? Street { get; set; }
+        public string? City { get; set; } = default!;
         public string? Region { get; set; }
         public string Country { get; set; } = default!;
         public string Latitude { get; set; } = default!;
