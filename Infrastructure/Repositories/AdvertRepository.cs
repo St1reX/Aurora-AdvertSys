@@ -34,44 +34,51 @@ namespace Infrastructure.Repositories
 
         public async Task<ICollection<Advert>?> GetFiltered(AdvertFilter advertFilter)
         {
-            var query = dbContext.Advert
+            var filterQuery = dbContext.Advert
                 .Include(x => x.Company)
                 .Include(x => x.Position)
                 .Include(x => x.SeniorityLevel)
                 .AsQueryable();
 
-            if(advertFilter.CompanyID != null)
+
+            //FILTERING CONDITIONS
             {
-                query = query.Where(x => x.CompanyID == advertFilter.CompanyID);
+                if (advertFilter.CompanyID != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.CompanyID == advertFilter.CompanyID);
+                }
+
+                if (advertFilter.PositionID != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.PositionID == advertFilter.PositionID);
+                }
+
+                if (advertFilter.SeniorityLevelID != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.SeniorityLevelID == advertFilter.SeniorityLevelID);
+                }
+
+                if (advertFilter.MinSalary != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.MinSalary >= advertFilter.MinSalary);
+                }
+
+                if (advertFilter.MaxSalary != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.MaxSalary <= advertFilter.MaxSalary);
+                }
+
+                if (advertFilter.CVMandatory != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.CVMandatory == advertFilter.CVMandatory);
+                }
+
             }
 
-            if (advertFilter.PositionID != null)
-            {
-                query = query.Where(x => x.PositionID == advertFilter.PositionID);
-            }
-
-            if (advertFilter.SeniorityLevelID != null)
-            {
-                query = query.Where(x => x.SeniorityLevelID == advertFilter.SeniorityLevelID);
-            }
-
-            if(advertFilter.MinSalary != null)
-            {
-                query = query.Where(x => x.MinSalary >= advertFilter.MinSalary);
-            }
-
-            if(advertFilter.MaxSalary != null)
-            {
-                query = query.Where(x => x.MaxSalary <= advertFilter.MaxSalary);
-            }
-
-            if (advertFilter.CVMandatory != null)
-            {
-               query = query.Where(x => x.CVMandatory == advertFilter.CVMandatory);
-            }
-
-            var adverts = await query
+            var queryFilteredAdverts = await filterQuery
                 .ToListAsync();
+
+            var locationFilteredAdverts = new List<Advert>();
 
 
             if(advertFilter.Location != null)
@@ -80,24 +87,21 @@ namespace Infrastructure.Repositories
 
                 if (apiAdressDetails != null)
                 {
-                    Console.WriteLine(apiAdressDetails.Latitude + " " + apiAdressDetails.Longitude);
-
-                    foreach (var advert in adverts)
+                    foreach (var advert in queryFilteredAdverts)
                     {
                         var advertAddress = await address.GetByAddressID(advert.AdvertAdressID);
                         var distance = DistanceCalculator.CalculateDistance(apiAdressDetails.Latitude, apiAdressDetails.Longitude, advertAddress.Latitude, advertAddress.Longitude);
-                        Console.WriteLine("Distance: " + distance);
 
-                        if (distance > advertFilter.AcceptableDistance)
+                        if (distance <= advertFilter.AcceptableDistance)
                         {
-                            adverts.Remove(advert);
+                            locationFilteredAdverts.Add(advert);
                         }
                         //TODO: REPAIR deleting from list, zabezpieczenie i cachowanie (sciaganie z cachu)
                     }
                 }
             }
 
-            return adverts;
+            return locationFilteredAdverts;
         }
     }
 }

@@ -17,6 +17,6 @@ namespace Core.Entities.Shared
         public ICollection<Company.Company> Companies { get; set; } = new List<Company.Company>();
         public ICollection<User> Users { get; set; } = new List<User>();
         public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
-        public ICollection<CachedFilteredLocation> CachedFilteredLocations { get; set; } = new List<CachedFilteredLocation>();
+        public ICollection<CachedAddress> CachedAddresses { get; set; } = new List<CachedAddress>();
     }
 }

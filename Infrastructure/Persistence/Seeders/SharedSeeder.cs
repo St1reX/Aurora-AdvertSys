@@ -47,8 +47,8 @@ namespace Infrastructure.Persistence.Seeders
                     City = "Limanowa",
                     Region = "Małopolskie",
                     Country = "Poland",
-                    Latitude = "49.708170",
-                    Longitude = "20.422075"
+                    Latitude = "49,708170",
+                    Longitude = "20,422075"
                 };
                 dbContext.Address.Add(defaultAdress);
             }

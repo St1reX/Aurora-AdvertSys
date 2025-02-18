@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuroraDbContext))]
-    partial class AuroraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250218111154_minor-address-updates")]
+    partial class minoraddressupdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -459,7 +462,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Core.Entities.UserDependent.CachedAddress", b =>
+            modelBuilder.Entity("Core.Entities.UserDependent.CachedLocation", b =>
                 {
                     b.Property<int>("CachedLocationID")
                         .ValueGeneratedOnAdd()
@@ -474,7 +477,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CachedAdressID");
 
-                    b.ToTable("CachedAddress");
+                    b.ToTable("CachedLocations");
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Course", b =>
@@ -914,10 +917,10 @@ namespace Infrastructure.Migrations
                     b.Navigation("UserAdress");
                 });
 
-            modelBuilder.Entity("Core.Entities.UserDependent.CachedAddress", b =>
+            modelBuilder.Entity("Core.Entities.UserDependent.CachedLocation", b =>
                 {
                     b.HasOne("Core.Entities.Shared.Address", "CachedAdress")
-                        .WithMany("CachedAddresses")
+                        .WithMany("CachedLocations")
                         .HasForeignKey("CachedAdressID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1100,7 +1103,7 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("Adverts");
 
-                    b.Navigation("CachedAddresses");
+                    b.Navigation("CachedLocations");
 
                     b.Navigation("Companies");
 

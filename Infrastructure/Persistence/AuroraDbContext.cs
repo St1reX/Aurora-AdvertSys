@@ -48,7 +48,7 @@ namespace Infrastructure.Persistence
         public DbSet<Core.Entities.UserDependent.Skill.UserSkill> UserSkill { get; set; }
         public DbSet<Core.Entities.UserDependent.Course> Course { get; set; }
         public DbSet<Core.Entities.UserDependent.Link> Link { get; set; }
-        public DbSet<Core.Entities.UserDependent.CachedFilteredLocation> AdvertFilterLocationCached { get; set; }
+        public DbSet<Core.Entities.UserDependent.CachedAddress> CachedAddress { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

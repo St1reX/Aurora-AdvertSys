@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities.UserDependent
 {
-    public class CachedFilteredLocation
+    public class CachedAddress
     {
         public int CachedLocationID { get; set; }
 
