@@ -1,4 +1,5 @@
-﻿using Core.Entities.UserDependent;
+﻿using Core.Entities.Shared;
+using Core.Entities.UserDependent;
 using Core.Interfaces;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
@@ -19,10 +20,20 @@ namespace Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task Create(string addressID)
+        public async Task Create(int addressID)
         {
             var cachedAddress = new CachedAddress
-            dbContext.CachedAddress.Add();
+            {
+                AddressID = addressID
+            };
+
+            dbContext.CachedAddress.Add(cachedAddress);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public Task<CachedAddress> GetAddressByID(int addressID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Core.Entities.Shared.Company
         public string Website { get; set; } = default!;
 
 
-        public int CompanyAdressID { get; set; }
-        public Address CompanyAdress { get; set; } = default!;
+        public int CompanyAddressID { get; set; }
+        public Address CompanyAddress { get; set; } = default!;
 
 
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();

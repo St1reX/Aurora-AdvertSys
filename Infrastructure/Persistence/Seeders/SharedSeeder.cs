@@ -61,7 +61,7 @@ namespace Infrastructure.Persistence.Seeders
                     Description = "Aurora is a software development company.",
                     Email = "aurora@gmail.com",
                     Website = "aurora.com",
-                    CompanyAdressID = 1
+                    CompanyAddressID = 1
                 };
                 dbContext.Company.Add(defaultCompany);
             }

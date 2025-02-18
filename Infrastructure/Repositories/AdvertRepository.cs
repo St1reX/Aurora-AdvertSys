@@ -5,6 +5,11 @@ using Core.Interfaces;
 using Core.Utilities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -12,13 +17,13 @@ namespace Infrastructure.Repositories
     {
         private readonly AuroraDbContext dbContext;
         private readonly ILocationService locationService;
-        private readonly IAddress address;
+        private readonly ICachedAddress cachedAddress;
 
-        public AdvertRepository(AuroraDbContext dbContext, ILocationService locationService, IAddress address)
+        public AdvertRepository(AuroraDbContext dbContext, ILocationService locationService, ICachedAddress cachedAddress)
         {
             this.dbContext = dbContext;
             this.locationService = locationService;
-            this.address = address;
+            this.cachedAddress = cachedAddress;
         }
 
         public async Task<ICollection<Advert>?> GetAll()
@@ -38,41 +43,37 @@ namespace Infrastructure.Repositories
                 .Include(x => x.Company)
                 .Include(x => x.Position)
                 .Include(x => x.SeniorityLevel)
+                .Include(x => x.AdvertAddress)
                 .AsQueryable();
 
-
-            //FILTERING CONDITIONS
+            if(advertFilter.CompanyID != null)
             {
-                if (advertFilter.CompanyID != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.CompanyID == advertFilter.CompanyID);
-                }
+                filterQuery = filterQuery.Where(x => x.CompanyID == advertFilter.CompanyID);
+            }
 
-                if (advertFilter.PositionID != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.PositionID == advertFilter.PositionID);
-                }
+            if (advertFilter.PositionID != null)
+            {
+                filterQuery = filterQuery.Where(x => x.PositionID == advertFilter.PositionID);
+            }
 
-                if (advertFilter.SeniorityLevelID != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.SeniorityLevelID == advertFilter.SeniorityLevelID);
-                }
+            if (advertFilter.SeniorityLevelID != null)
+            {
+                filterQuery = filterQuery.Where(x => x.SeniorityLevelID == advertFilter.SeniorityLevelID);
+            }
 
-                if (advertFilter.MinSalary != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.MinSalary >= advertFilter.MinSalary);
-                }
+            if(advertFilter.MinSalary != null)
+            {
+                filterQuery = filterQuery.Where(x => x.MinSalary >= advertFilter.MinSalary);
+            }
 
-                if (advertFilter.MaxSalary != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.MaxSalary <= advertFilter.MaxSalary);
-                }
+            if(advertFilter.MaxSalary != null)
+            {
+                filterQuery = filterQuery.Where(x => x.MaxSalary <= advertFilter.MaxSalary);
+            }
 
-                if (advertFilter.CVMandatory != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.CVMandatory == advertFilter.CVMandatory);
-                }
-
+            if (advertFilter.CVMandatory != null)
+            {
+               filterQuery = filterQuery.Where(x => x.CVMandatory == advertFilter.CVMandatory);
             }
 
             var queryFilteredAdverts = await filterQuery
@@ -81,24 +82,31 @@ namespace Infrastructure.Repositories
             var locationFilteredAdverts = new List<Advert>();
 
 
-            if(advertFilter.Location != null)
+            if(advertFilter.Location != null && advertFilter.AcceptableDistance != null)
             {
-                var apiAdressDetails = await locationService.GetCoordinatesAsync(advertFilter.Location);
+                var userPromptAddress = await locationService.GetCoordinatesAsync(advertFilter.Location);
 
-                if (apiAdressDetails != null)
+                if (userPromptAddress != null)
                 {
+                    Console.WriteLine(userPromptAddress.Latitude + " " + userPromptAddress.Longitude);
+
                     foreach (var advert in queryFilteredAdverts)
                     {
-                        var advertAddress = await address.GetByAddressID(advert.AdvertAdressID);
-                        var distance = DistanceCalculator.CalculateDistance(apiAdressDetails.Latitude, apiAdressDetails.Longitude, advertAddress.Latitude, advertAddress.Longitude);
+                        var advertAddress = advert.AdvertAddress;
+                        var distance = DistanceCalculator.CalculateDistance(userPromptAddress.Latitude, userPromptAddress.Longitude, advertAddress.Latitude, advertAddress.Longitude);
+                        Console.WriteLine("Distance: " + distance);
 
-                        if (distance <= advertFilter.AcceptableDistance)
+                        if (distance < advertFilter.AcceptableDistance)
                         {
                             locationFilteredAdverts.Add(advert);
                         }
-                        //TODO: REPAIR deleting from list, zabezpieczenie i cachowanie (sciaganie z cachu)
+                        
                     }
                 }
+            }
+            else
+            {
+                locationFilteredAdverts = queryFilteredAdverts;
             }
 
             return locationFilteredAdverts;

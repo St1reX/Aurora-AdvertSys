@@ -21,11 +21,11 @@ namespace Core.Entities
 
         public int PositionID { get; set; }
         public int? CompanyID { get; set; }
-        public int UserAdressID { get; set; }
+        public int UserAddressID { get; set; }
 
         public Position Position { get; set; } = default!;
         public Company? Company { get; set; }
-        public Address UserAdress { get; set; } = default!;
+        public Address UserAddress { get; set; } = default!;
 
         public ICollection<UserLanguage> UserLanguages { get; set; } = new List<UserLanguage>();
         public ICollection<UserSkill> UserSkills { get; set; } = new List<UserSkill>();

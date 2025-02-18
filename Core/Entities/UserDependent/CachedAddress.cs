@@ -9,9 +9,9 @@ namespace Core.Entities.UserDependent
 {
     public class CachedAddress
     {
-        public int CachedLocationID { get; set; }
+        public int CachedAddressID { get; set; }
 
-        public int CachedAdressID { get; set; }
-        public Address CachedAdress { get; set; } = default!;
+        public int AddressID { get; set; }
+        public Address Address { get; set; } = default!;
     }
 }

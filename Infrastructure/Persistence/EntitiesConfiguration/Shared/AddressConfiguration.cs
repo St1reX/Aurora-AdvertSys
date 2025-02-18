@@ -14,7 +14,7 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.Shared
 
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.HasKey(x => x.AdressID);
+            builder.HasKey(x => x.AddressID);
             builder.Property(x => x.Country).IsRequired().HasMaxLength(50);
         }
     }

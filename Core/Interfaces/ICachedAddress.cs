@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Entities.UserDependent;
 
 namespace Core.Interfaces
 {
     public interface ICachedAddress
     {
-        Task Create(string addressID);
+        Task Create(int addressID);
+        Task<CachedAddress> GetAddressByID(int addressID);
     }
 }

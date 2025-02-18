@@ -9,7 +9,7 @@ namespace Core.Interfaces
 {
     public interface IAddress
     {
-        Task SaveAdress(Address address);
-        Task<Address> GetByAddressID(int id);
+        Task SaveAddress(Address address);
+        Task<Address> GetAddressByID(int id);
     }
 }

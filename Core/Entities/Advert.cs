@@ -24,7 +24,7 @@ namespace Core.Entities
         public int EmploymentTypeID { get; set; }
         public int WorkModelID { get; set; }
         public int WorkDaysID { get; set; }
-        public int AdvertAdressID { get; set; }
+        public int AdvertAddressID { get; set; }
 
 
         public Position Position { get; set; } = default!;
@@ -35,7 +35,7 @@ namespace Core.Entities
         public EmploymentType EmploymentType { get; set; } = default!;
         public WorkModel WorkModel { get; set; } = default!;
         public WorkDays WorkDays { get; set; } = default!;
-        public Address AdvertAdress { get; set; } = default!;
+        public Address AdvertAddress { get; set; } = default!;
 
         public ICollection<Benefit> Benefits { get; set; } = new List<Benefit>();
         public ICollection<Requirment> Requirments { get; set; } = new List<Requirment>();

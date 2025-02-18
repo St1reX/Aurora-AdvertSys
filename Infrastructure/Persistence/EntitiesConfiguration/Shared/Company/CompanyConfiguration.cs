@@ -18,9 +18,9 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.Shared.Company
             builder.Property(x => x.Email).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Website).IsRequired();
 
-            builder.HasOne(x => x.CompanyAdress)
+            builder.HasOne(x => x.CompanyAddress)
                 .WithMany(y => y.Companies)
-                .HasForeignKey(x => x.CompanyAdressID)
+                .HasForeignKey(x => x.CompanyAddressID)
                 .OnDelete(DeleteBehavior.Restrict);
 
         }

@@ -31,7 +31,7 @@ namespace Infrastructure.Persistence.Seeders
                     WorkSummary = "I am a software developer",
                     PositionID = 1,
                     CompanyID = 1,
-                    UserAdressID = 1
+                    UserAddressID = 1
                 };
 
                 dbContext.User.Add(defaultUser);
@@ -57,7 +57,7 @@ namespace Infrastructure.Persistence.Seeders
                     EmploymentTypeID = 1,
                     WorkModelID = 1,
                     WorkDaysID = 1,
-                    AdvertAdressID = 1
+                    AdvertAddressID = 1
                 };
                 dbContext.Advert.Add(defaultAdvert);
 

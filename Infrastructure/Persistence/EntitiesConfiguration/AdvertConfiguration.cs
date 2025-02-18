@@ -71,9 +71,9 @@ namespace Infrastructure.Persistence.EntitiesConfiguration
                 .HasForeignKey(x => x.CompanyID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(x => x.AdvertAdress)
+            builder.HasOne(x => x.AdvertAddress)
                 .WithMany(y => y.Adverts)
-                .HasForeignKey(x => x.AdvertAdressID)
+                .HasForeignKey(x => x.AdvertAddressID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

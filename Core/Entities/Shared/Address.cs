@@ -4,7 +4,7 @@ namespace Core.Entities.Shared
 {
     public class Address
     {
-        public int AdressID { get; set; }
+        public int AddressID { get; set; }
         public string? StreetNumber { get; set; }
         public string? Street { get; set; }
         public string? City { get; set; } = default!;

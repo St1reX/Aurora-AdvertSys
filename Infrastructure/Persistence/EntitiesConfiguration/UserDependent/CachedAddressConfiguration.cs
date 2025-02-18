@@ -13,11 +13,11 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.UserDependent
     {
         public void Configure(EntityTypeBuilder<CachedAddress> builder)
         {
-            builder.HasKey(x => x.CachedLocationID);
+            builder.HasKey(x => x.CachedAddressID);
 
-            builder.HasOne(x => x.CachedAdress)
+            builder.HasOne(x => x.Address)
                 .WithMany(y => y.CachedAddresses)
-                .HasForeignKey(x => x.CachedAdressID)
+                .HasForeignKey(x => x.CachedAddressID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
