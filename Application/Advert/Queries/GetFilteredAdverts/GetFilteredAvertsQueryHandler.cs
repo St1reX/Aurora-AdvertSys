@@ -28,10 +28,9 @@ namespace Application.Advert.Queries.GetFilteredAdverts
             var filter = mapper.Map<AdvertFilter>(request);
 
             var adverts = await advert.GetFiltered(filter);
+            var advertsDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
 
-            var advertDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
-
-            return advertDTO;
+            return advertsDTO;
         }
     }
 }

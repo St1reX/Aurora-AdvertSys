@@ -19,6 +19,7 @@ namespace Application.Advert.DTOs
         public decimal? MinSalary { get; set; }
         public decimal? MaxSalary { get; set; }
         public string? Location { get; set; }
+        public int? AcceptableDistance { get; set; }
     }
 }
  

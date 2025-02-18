@@ -18,9 +18,10 @@ namespace Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
-        public Task<Address> GetByLocationName(string locationName)
+        public async Task<Address> GetByAddressID(int id)
         {
-            throw new NotImplementedException();
+            var adress = await dbContext.Address.FindAsync(id);
+            return adress!;
         }
 
         public async Task SaveAdress(Address address)

@@ -10,6 +10,6 @@ namespace Core.Interfaces
     public interface IAddress
     {
         Task SaveAdress(Address address);
-        Task<Address> GetByLocationName(string locationName);
+        Task<Address> GetByAddressID(int id);
     }
 }

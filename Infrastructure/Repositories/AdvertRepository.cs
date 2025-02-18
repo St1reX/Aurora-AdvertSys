@@ -5,11 +5,6 @@ using Core.Interfaces;
 using Core.Utilities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -17,11 +12,13 @@ namespace Infrastructure.Repositories
     {
         private readonly AuroraDbContext dbContext;
         private readonly ILocationService locationService;
+        private readonly IAddress address;
 
-        public AdvertRepository(AuroraDbContext dbContext, ILocationService locationService)
+        public AdvertRepository(AuroraDbContext dbContext, ILocationService locationService, IAddress address)
         {
             this.dbContext = dbContext;
             this.locationService = locationService;
+            this.address = address;
         }
 
         public async Task<ICollection<Advert>?> GetAll()
@@ -37,7 +34,11 @@ namespace Infrastructure.Repositories
 
         public async Task<ICollection<Advert>?> GetFiltered(AdvertFilter advertFilter)
         {
-            var query = dbContext.Advert.AsQueryable();
+            var query = dbContext.Advert
+                .Include(x => x.Company)
+                .Include(x => x.Position)
+                .Include(x => x.SeniorityLevel)
+                .AsQueryable();
 
             if(advertFilter.CompanyID != null)
             {
@@ -75,23 +76,23 @@ namespace Infrastructure.Repositories
 
             if(advertFilter.Location != null)
             {
-                var userPromptAddress = await locationService.GetCoordinatesAsync(advertFilter.Location);
+                var apiAdressDetails = await locationService.GetCoordinatesAsync(advertFilter.Location);
 
-                if (userPromptAddress != null)
+                if (apiAdressDetails != null)
                 {
-                    Console.WriteLine(userPromptAddress.Latitude + " " + userPromptAddress.Longitude);
+                    Console.WriteLine(apiAdressDetails.Latitude + " " + apiAdressDetails.Longitude);
 
                     foreach (var advert in adverts)
                     {
-                        var advertAddress = advert.AdvertAdress;
-                        var distance = DistanceCalculator.CalculateDistance(userPromptAddress.Latitude, userPromptAddress.Longitude, advertAddress.Latitude, advertAddress.Longitude);
-                        Console.WriteLine("Dsitane: " + distance);
+                        var advertAddress = await address.GetByAddressID(advert.AdvertAdressID);
+                        var distance = DistanceCalculator.CalculateDistance(apiAdressDetails.Latitude, apiAdressDetails.Longitude, advertAddress.Latitude, advertAddress.Longitude);
+                        Console.WriteLine("Distance: " + distance);
 
-                        if (distance > 20)
+                        if (distance > advertFilter.AcceptableDistance)
                         {
                             adverts.Remove(advert);
                         }
-                        
+                        //TODO: REPAIR deleting from list, zabezpieczenie i cachowanie (sciaganie z cachu)
                     }
                 }
             }

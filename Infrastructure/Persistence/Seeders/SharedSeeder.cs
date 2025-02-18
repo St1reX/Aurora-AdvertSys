@@ -53,18 +53,18 @@ namespace Infrastructure.Persistence.Seeders
                 dbContext.Address.Add(defaultAdress);
             }
 
-            //if (!dbContext.Company.Any())
-            //{
-            //    var defaultCompany = new Company()
-            //    {
-            //        CompanyName = "Aurora",
-            //        Description = "Aurora is a software development company.",
-            //        Email = "aurora@gmail.com",
-            //        Website = "aurora.com",
-            //        CompanyAdressID = 1
-            //    };
-            //    dbContext.Company.Add(defaultCompany);
-            //}
+            if (!dbContext.Company.Any())
+            {
+                var defaultCompany = new Company()
+                {
+                    CompanyName = "Aurora",
+                    Description = "Aurora is a software development company.",
+                    Email = "aurora@gmail.com",
+                    Website = "aurora.com",
+                    CompanyAdressID = 1
+                };
+                dbContext.Company.Add(defaultCompany);
+            }
 
             await dbContext.SaveChangesAsync();
         }

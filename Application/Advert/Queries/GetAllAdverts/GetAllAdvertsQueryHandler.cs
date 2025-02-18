@@ -24,9 +24,9 @@ namespace Application.Advert.Queries.GetAllAdverts
         public async Task<ICollection<AdvertDTO>?> Handle(GetAllAdvertsQuery request, CancellationToken cancellationToken)
         {
             var adverts = await advert.GetAll();
-            var advertDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
+            var advertsDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
 
-            return advertDTO;
+            return advertsDTO;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace REST_API.Controllers
 
 
         [HttpGet("filter")]
-        public async Task<IActionResult> GetFiltered([FromBodyAttribute] GetFilteredAdvertsQuery command)
+        public async Task<IActionResult> GetFiltered([FromQuery] GetFilteredAdvertsQuery command)
         {
             var adverts = await mediator.Send(command);
 
