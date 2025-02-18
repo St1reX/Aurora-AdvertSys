@@ -27,9 +27,8 @@ namespace Infrastructure.Extensions
             services.AddScoped<AuroraBasicSeeder>();
 
 
-            services.AddScoped<IAdvert, AdvertRepository>();
-            services.AddScoped<IAddress, AddressRepository>();
-            services.AddScoped<ICachedAddress, CachedAddressRepository>();
+            services.AddScoped<IAdvertRepository, AdvertRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ILocationService, GoogleMapsService>();
         }
     }

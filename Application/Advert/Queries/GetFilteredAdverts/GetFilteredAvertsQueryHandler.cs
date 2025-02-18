@@ -14,10 +14,10 @@ namespace Application.Advert.Queries.GetFilteredAdverts
     public class GetFilteredAvertsQueryHandler : IRequestHandler<GetFilteredAdvertsQuery, ICollection<AdvertDTO>?>
     {
 
-        private readonly IAdvert advert;
+        private readonly IAdvertRepository advert;
         private readonly IMapper mapper;
 
-        public GetFilteredAvertsQueryHandler(IAdvert advert, IMapper mapper)
+        public GetFilteredAvertsQueryHandler(IAdvertRepository advert, IMapper mapper)
         {
             this.advert = advert;
             this.mapper = mapper;
@@ -27,10 +27,11 @@ namespace Application.Advert.Queries.GetFilteredAdverts
         {
             var filter = mapper.Map<AdvertFilter>(request);
 
-            var adverts = await advert.GetFiltered(filter);
-            var advertsDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
+            var adverts = await advert.GetFilteredAdverts(filter);
 
-            return advertsDTO;
+            var advertDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
+
+            return advertDTO;
         }
     }
 }

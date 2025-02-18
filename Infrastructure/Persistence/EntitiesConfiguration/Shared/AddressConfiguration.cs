@@ -16,6 +16,8 @@ namespace Infrastructure.Persistence.EntitiesConfiguration.Shared
         {
             builder.HasKey(x => x.AddressID);
             builder.Property(x => x.Country).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Latitude).IsRequired().HasPrecision(8, 6);
+            builder.Property(x => x.Longitude).IsRequired().HasPrecision(8, 6);
         }
     }
 }

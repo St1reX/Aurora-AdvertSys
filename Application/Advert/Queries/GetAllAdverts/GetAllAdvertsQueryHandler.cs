@@ -12,10 +12,10 @@ namespace Application.Advert.Queries.GetAllAdverts
 {
     public class GetAllAdvertsQueryHandler : IRequestHandler<GetAllAdvertsQuery, ICollection<AdvertDTO>?>
     {
-        private readonly IAdvert advert;
+        private readonly IAdvertRepository advert;
         private readonly IMapper mapper;
 
-        public GetAllAdvertsQueryHandler(IAdvert advert, IMapper mapper)
+        public GetAllAdvertsQueryHandler(IAdvertRepository advert, IMapper mapper)
         {
             this.advert = advert;
             this.mapper = mapper;
@@ -23,7 +23,7 @@ namespace Application.Advert.Queries.GetAllAdverts
 
         public async Task<ICollection<AdvertDTO>?> Handle(GetAllAdvertsQuery request, CancellationToken cancellationToken)
         {
-            var adverts = await advert.GetAll();
+            var adverts = await advert.GetAllAdverts();
             var advertsDTO = mapper.Map<ICollection<AdvertDTO>?>(adverts);
 
             return advertsDTO;

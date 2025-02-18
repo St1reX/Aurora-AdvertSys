@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuroraDbContext))]
-    partial class AuroraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250218155845_cachedAddress-entity-delete")]
+    partial class cachedAddressentitydelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,13 +304,13 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(8, 6)
-                        .HasColumnType("decimal(8,6)");
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(8, 6)
-                        .HasColumnType("decimal(8,6)");
+                    b.Property<string>("Longitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Region")
                         .HasColumnType("nvarchar(max)");

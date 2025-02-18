@@ -56,8 +56,8 @@ namespace Infrastructure.Services
                         City = adressData!.FirstOrDefault(x => x["types"]!.Any(y => y.ToString() == "locality"))?["long_name"]?.ToString(),
                         Region = adressData!.FirstOrDefault(x => x["types"]!.Any(y => y.ToString() == "administrative_area_level_1"))?["long_name"]?.ToString(),
                         Country = adressData!.FirstOrDefault(x => x["types"]!.Any(y => y.ToString() == "country"))!["long_name"]!.ToString(),
-                        Latitude = coordinates?["lat"]?.ToString()!.Replace('.', ',')!,
-                        Longitude = coordinates?["lng"]?.ToString()!.Replace('.', ',')!
+                        Latitude = Convert.ToDecimal(coordinates?["lat"]!),
+                        Longitude = Convert.ToDecimal(coordinates?["lng"]!),
                     };
 
                     return adressDTO;

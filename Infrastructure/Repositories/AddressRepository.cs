@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class AddressRepository : IAddress
+    public class AddressRepository : IAddressRepository
     {
         private readonly AuroraDbContext dbContext;
 

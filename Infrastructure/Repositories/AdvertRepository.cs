@@ -13,20 +13,35 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    internal class AdvertRepository : IAdvert
+    internal class AdvertRepository : IAdvertRepository
     {
         private readonly AuroraDbContext dbContext;
         private readonly ILocationService locationService;
-        private readonly ICachedAddress cachedAddress;
 
-        public AdvertRepository(AuroraDbContext dbContext, ILocationService locationService, ICachedAddress cachedAddress)
+        public AdvertRepository(AuroraDbContext dbContext, ILocationService locationService)
         {
             this.dbContext = dbContext;
             this.locationService = locationService;
-            this.cachedAddress = cachedAddress;
         }
 
-        public async Task<ICollection<Advert>?> GetAll()
+        public async Task<Advert?> GetAdvertById(int id)
+        {
+            var advert = await dbContext.Advert.Include(x => x.Company)
+                .Include(x => x.Company)
+                .Include(x => x.Position)
+                .Include(x => x.JobSector)
+                .Include(x => x.SeniorityLevel)
+                .Include(x => x.ContractType)
+                .Include(x => x.EmploymentType)
+                .Include(x => x.WorkModel)
+                .Include(x => x.WorkDays)
+                .Include(x => x.AdvertAddress)
+                .FirstOrDefaultAsync(x => x.AdvertID == id);
+
+            return advert;
+        }
+
+        public async Task<ICollection<Advert>?> GetAllAdverts()
         {
             var adverts = await dbContext.Advert
                 .Include(x => x.Company)
@@ -37,8 +52,10 @@ namespace Infrastructure.Repositories
             return adverts;
         }
 
-        public async Task<ICollection<Advert>?> GetFiltered(AdvertFilter advertFilter)
+        public async Task<ICollection<Advert>?> GetFilteredAdverts(AdvertFilter advertFilter)
         {
+
+
             var filterQuery = dbContext.Advert
                 .Include(x => x.Company)
                 .Include(x => x.Position)
@@ -46,70 +63,76 @@ namespace Infrastructure.Repositories
                 .Include(x => x.AdvertAddress)
                 .AsQueryable();
 
-            if(advertFilter.CompanyID != null)
-            {
-                filterQuery = filterQuery.Where(x => x.CompanyID == advertFilter.CompanyID);
-            }
 
-            if (advertFilter.PositionID != null)
+            //FILTERING CONDITIONS
             {
-                filterQuery = filterQuery.Where(x => x.PositionID == advertFilter.PositionID);
-            }
+                if (advertFilter.CompanyID != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.CompanyID == advertFilter.CompanyID);
+                }
 
-            if (advertFilter.SeniorityLevelID != null)
-            {
-                filterQuery = filterQuery.Where(x => x.SeniorityLevelID == advertFilter.SeniorityLevelID);
-            }
+                if (advertFilter.PositionID != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.PositionID == advertFilter.PositionID);
+                }
 
-            if(advertFilter.MinSalary != null)
-            {
-                filterQuery = filterQuery.Where(x => x.MinSalary >= advertFilter.MinSalary);
-            }
+                if (advertFilter.SeniorityLevelID != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.SeniorityLevelID == advertFilter.SeniorityLevelID);
+                }
 
-            if(advertFilter.MaxSalary != null)
-            {
-                filterQuery = filterQuery.Where(x => x.MaxSalary <= advertFilter.MaxSalary);
-            }
+                if (advertFilter.MinSalary != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.MinSalary >= advertFilter.MinSalary);
+                }
 
-            if (advertFilter.CVMandatory != null)
-            {
-               filterQuery = filterQuery.Where(x => x.CVMandatory == advertFilter.CVMandatory);
-            }
+                if (advertFilter.MaxSalary != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.MaxSalary <= advertFilter.MaxSalary);
+                }
 
+                if (advertFilter.CVMandatory != null)
+                {
+                    filterQuery = filterQuery.Where(x => x.CVMandatory == advertFilter.CVMandatory);
+                }
+
+
+
+                advertFilter.Amount ??= 10;
+
+                advertFilter.Offset ??= 0;
+            }
+           
             var queryFilteredAdverts = await filterQuery
+                .Skip(advertFilter.Offset.Value)
+                .Take(advertFilter.Amount.Value)
                 .ToListAsync();
 
-            var locationFilteredAdverts = new List<Advert>();
+            
+            //LOCATION FILTERING
 
-
-            if(advertFilter.Location != null && advertFilter.AcceptableDistance != null)
+            if (advertFilter.Location != null)
             {
-                var userPromptAddress = await locationService.GetCoordinatesAsync(advertFilter.Location);
+                advertFilter.AcceptableDistance ??= 5;
+                var coordinates = await locationService.GetCoordinatesAsync(advertFilter.Location);
 
-                if (userPromptAddress != null)
+                if (coordinates != null)
                 {
-                    Console.WriteLine(userPromptAddress.Latitude + " " + userPromptAddress.Longitude);
+                    var locationFilterQuery = dbContext.Advert.
+                        FromSqlRaw("SELECT *, dbo.GetDistanceInKm({0}, {1}, CAST(Address.Latitude AS FLOAT), CAST(Address.Longitude AS FLOAT)) AS DistanceInKm" +
+                        " FROM Advert JOIN Address ON Advert.AdvertAddressID = Address.AddressID" +
+                        " WHERE dbo.GetDistanceInKm({0}, {1}, CAST(Address.Latitude AS FLOAT), CAST(Address.Longitude AS FLOAT)) <= {2}",
+                        Convert.ToDouble(coordinates.Latitude), Convert.ToDouble(coordinates.Longitude), advertFilter.AcceptableDistance);
 
-                    foreach (var advert in queryFilteredAdverts)
-                    {
-                        var advertAddress = advert.AdvertAddress;
-                        var distance = DistanceCalculator.CalculateDistance(userPromptAddress.Latitude, userPromptAddress.Longitude, advertAddress.Latitude, advertAddress.Longitude);
-                        Console.WriteLine("Distance: " + distance);
+                    var locationFilterdAdverts = await locationFilterQuery.ToListAsync();
 
-                        if (distance < advertFilter.AcceptableDistance)
-                        {
-                            locationFilteredAdverts.Add(advert);
-                        }
-                        
-                    }
+                    queryFilteredAdverts = queryFilteredAdverts
+                    .Where(ad => locationFilterdAdverts.Any(locAd => locAd.AdvertID == ad.AdvertID))
+                    .ToList();
                 }
             }
-            else
-            {
-                locationFilteredAdverts = queryFilteredAdverts;
-            }
 
-            return locationFilteredAdverts;
+            return queryFilteredAdverts;
         }
     }
 }

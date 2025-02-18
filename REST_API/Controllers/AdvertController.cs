@@ -1,4 +1,5 @@
 ﻿using Application.Advert.DTOs;
+using Application.Advert.Queries.GetAdvertDetails;
 using Application.Advert.Queries.GetAllAdverts;
 using Application.Advert.Queries.GetFilteredAdverts;
 using AutoMapper;
@@ -42,13 +43,17 @@ namespace REST_API.Controllers
             return Ok(JsonSerializer.Serialize(adverts));
         }
 
-
-
-
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> GetDetails(int id)
         {
-            return "value";
+            var advertDetails = await mediator.Send(new GetAdvertDetailsQuery { Id = id });
+
+            if (advertDetails == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(JsonSerializer.Serialize(advertDetails));
         }
 
 

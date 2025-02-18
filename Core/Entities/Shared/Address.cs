@@ -10,13 +10,12 @@ namespace Core.Entities.Shared
         public string? City { get; set; } = default!;
         public string? Region { get; set; }
         public string Country { get; set; } = default!;
-        public string Latitude { get; set; } = default!;
-        public string Longitude { get; set; } = default!;
+        public decimal Latitude { get; set; } = default!;
+        public decimal Longitude { get; set; } = default!;
 
 
         public ICollection<Company.Company> Companies { get; set; } = new List<Company.Company>();
         public ICollection<User> Users { get; set; } = new List<User>();
         public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
-        public ICollection<CachedAddress> CachedAddresses { get; set; } = new List<CachedAddress>();
     }
 }

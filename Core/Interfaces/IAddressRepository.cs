@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
-    public interface IAddress
+    public interface IAddressRepository
     {
         Task SaveAddress(Address address);
         Task<Address> GetAddressByID(int id);

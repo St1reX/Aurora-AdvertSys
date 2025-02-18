@@ -13,7 +13,7 @@ namespace Application.Adress.DTOs
         public string? City { get; set; }
         public string? Region { get; set; }
         public string Country { get; set; } = default!;
-        public string Latitude { get; set; } = default!;
-        public string Longitude { get; set; } = default!;
+        public decimal Latitude { get; set; } = default!;
+        public decimal Longitude { get; set; } = default!;
     }
 }
