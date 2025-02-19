@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+//TODO: basic GET endpoints for entities that can be accessed by anyone without authentication
 
 namespace REST_API.Controllers
 {
@@ -38,6 +39,11 @@ namespace REST_API.Controllers
         [HttpGet("filter")]
         public async Task<IActionResult> GetFiltered([FromQuery] GetFilteredAdvertsQuery command)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var adverts = await mediator.Send(command);
 
             return Ok(JsonSerializer.Serialize(adverts));

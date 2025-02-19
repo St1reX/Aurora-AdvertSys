@@ -1,4 +1,6 @@
 ﻿using Application.Advert.Queries.GetAllAdverts;
+using Application.Advert.Queries.GetFilteredAdverts;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace Application.Extensions
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllAdvertsQuery).Assembly));
+            services.AddValidatorsFromAssembly(typeof(GetFilteredAdvertsQueryValidator).Assembly);
         }
     }
 }
