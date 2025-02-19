@@ -54,85 +54,44 @@ namespace Infrastructure.Repositories
 
         public async Task<ICollection<Advert>?> GetFilteredAdverts(AdvertFilter advertFilter)
         {
+            double? latitude = null, longitude = null;
 
+            if (!string.IsNullOrEmpty(advertFilter.Location))
+            {
+                var coordinates = await locationService.GetCoordinatesAsync(advertFilter.Location);
+                if (coordinates != null)
+                {
+                    latitude = Convert.ToDouble(coordinates.Latitude);
+                    longitude = Convert.ToDouble(coordinates.Longitude);
+                }
+            }
 
-            var filterQuery = dbContext.Advert
+            var filteredAdvertsID = await dbContext.Advert
+                .FromSqlRaw("EXEC FilterAdverts @CompanyID={0}, @PositionID={1}, @SeniorityLevelID={2}, " +
+                            "@MinSalary={3}, @MaxSalary={4}, @CvMandatory={5}, " +
+                            "@Latitude={6}, @Longitude={7}, @MaxDistance={8}," +
+                            "@Amount={9}, @Offset={10}",
+                    advertFilter.CompanyID ?? (object)DBNull.Value,
+                    advertFilter.PositionID ?? (object)DBNull.Value,
+                    advertFilter.SeniorityLevelID ?? (object)DBNull.Value,
+                    advertFilter.MinSalary ?? (object)DBNull.Value,
+                    advertFilter.MaxSalary ?? (object)DBNull.Value,
+                    advertFilter.CVMandatory ?? (object)DBNull.Value,
+                    latitude ?? (object)DBNull.Value,
+                    longitude ?? (object)DBNull.Value,
+                    advertFilter.AcceptableDistance ?? (object)DBNull.Value,
+                    advertFilter.Amount ?? (object)DBNull.Value,
+                    advertFilter.Offset ?? (object)DBNull.Value)
+                .ToListAsync();
+
+            var filteredAdverts = await dbContext.Advert
                 .Include(x => x.Company)
                 .Include(x => x.Position)
                 .Include(x => x.SeniorityLevel)
-                .Include(x => x.AdvertAddress)
-                .AsQueryable();
-
-
-            //FILTERING CONDITIONS
-            {
-                if (advertFilter.CompanyID != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.CompanyID == advertFilter.CompanyID);
-                }
-
-                if (advertFilter.PositionID != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.PositionID == advertFilter.PositionID);
-                }
-
-                if (advertFilter.SeniorityLevelID != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.SeniorityLevelID == advertFilter.SeniorityLevelID);
-                }
-
-                if (advertFilter.MinSalary != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.MinSalary >= advertFilter.MinSalary);
-                }
-
-                if (advertFilter.MaxSalary != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.MaxSalary <= advertFilter.MaxSalary);
-                }
-
-                if (advertFilter.CVMandatory != null)
-                {
-                    filterQuery = filterQuery.Where(x => x.CVMandatory == advertFilter.CVMandatory);
-                }
-
-
-
-                advertFilter.Amount ??= 10;
-
-                advertFilter.Offset ??= 0;
-            }
-           
-            var queryFilteredAdverts = await filterQuery
-                .Skip(advertFilter.Offset.Value)
-                .Take(advertFilter.Amount.Value)
+                .Where(x => filteredAdvertsID.Select(y => y.AdvertID).Contains(x.AdvertID))
                 .ToListAsync();
-
-            
-            //LOCATION FILTERING
-
-            if (advertFilter.Location != null)
-            {
-                advertFilter.AcceptableDistance ??= 5;
-                var coordinates = await locationService.GetCoordinatesAsync(advertFilter.Location);
-
-                if (coordinates != null)
-                {
-                    var locationFilterQuery = dbContext.Advert.
-                        FromSqlRaw("SELECT *, dbo.GetDistanceInKm({0}, {1}, CAST(Address.Latitude AS FLOAT), CAST(Address.Longitude AS FLOAT)) AS DistanceInKm" +
-                        " FROM Advert JOIN Address ON Advert.AdvertAddressID = Address.AddressID" +
-                        " WHERE dbo.GetDistanceInKm({0}, {1}, CAST(Address.Latitude AS FLOAT), CAST(Address.Longitude AS FLOAT)) <= {2}",
-                        Convert.ToDouble(coordinates.Latitude), Convert.ToDouble(coordinates.Longitude), advertFilter.AcceptableDistance);
-
-                    var locationFilterdAdverts = await locationFilterQuery.ToListAsync();
-
-                    queryFilteredAdverts = queryFilteredAdverts
-                    .Where(ad => locationFilterdAdverts.Any(locAd => locAd.AdvertID == ad.AdvertID))
-                    .ToList();
-                }
-            }
-
-            return queryFilteredAdverts;
+                
+            return filteredAdverts;
         }
     }
 }
