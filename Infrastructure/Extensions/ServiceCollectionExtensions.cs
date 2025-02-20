@@ -29,7 +29,10 @@ namespace Infrastructure.Extensions
 
             services.AddScoped<IAdvertRepository, AdvertRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+
             services.AddScoped<ILocationService, GoogleMapsService>();
+
         }
     }
 }

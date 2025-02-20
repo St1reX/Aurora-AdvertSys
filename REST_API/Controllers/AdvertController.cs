@@ -1,12 +1,10 @@
-﻿using Application.Advert.DTOs;
-using Application.Advert.Queries.GetAdvertDetails;
+﻿using Application.Advert.Queries.GetAdvertDetails;
 using Application.Advert.Queries.GetAllAdverts;
 using Application.Advert.Queries.GetFilteredAdverts;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 //TODO: basic GET endpoints for entities that can be accessed by anyone without authentication

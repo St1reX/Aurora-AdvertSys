@@ -14,8 +14,6 @@ namespace Application.Advert
                 .ForMember(dest => dest.PositionName, opt => opt.MapFrom(src => src.Position.PositionName))
                 .ForMember(dest => dest.SeniorityLevelName, opt => opt.MapFrom(src => src.SeniorityLevel.SeniorityLevelName));
 
-            CreateMap<AdvertFilterDTO, AdvertFilter>()
-                .ReverseMap();
 
             CreateMap<Core.Entities.Advert, AdvertDetailsDTO>()
             .ForMember(dest => dest.WorkTime, opt =>

@@ -12,18 +12,18 @@ namespace Application.Advert.Queries.GetAdvertDetails
 {
     public class GetAdvertDetailsQueryHandler : IRequestHandler<GetAdvertDetailsQuery, AdvertDetailsDTO>
     {
-        private readonly IAdvertRepository advert;
+        private readonly IAdvertRepository advertRepository;
         private readonly IMapper mapper;
 
         public GetAdvertDetailsQueryHandler(IAdvertRepository advertRepository, IMapper mapper)
         {
-            this.advert = advertRepository;
+            this.advertRepository = advertRepository;
             this.mapper = mapper;
         }
 
         public async Task<AdvertDetailsDTO> Handle(GetAdvertDetailsQuery request, CancellationToken cancellationToken)
         {
-            var advertDetails = await advert.GetAdvertById(request.Id);
+            var advertDetails = await advertRepository.GetAdvertById(request.Id);
             var advertDetailsDTO = mapper.Map<AdvertDetailsDTO>(advertDetails);
             return advertDetailsDTO;
         }
