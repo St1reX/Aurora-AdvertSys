@@ -7,11 +7,6 @@ using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Extensions
 {
@@ -19,18 +14,24 @@ namespace Infrastructure.Extensions
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            //DB Context
             services.AddDbContext<AuroraDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Aurora")));
 
+            //HTTP Client
             services.AddHttpClient();
-            
+
+            //DB Seeders
             services.AddScoped<AuroraBasicSeeder>();
 
-
+            //Repositories
             services.AddScoped<IAdvertRepository, AdvertRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IPositionRepository, PositionRepository>();
+            services.AddScoped<IWorkModelRepository, WorkModelRepository>();
 
+            //Services
             services.AddScoped<ILocationService, GoogleMapsService>();
 
         }

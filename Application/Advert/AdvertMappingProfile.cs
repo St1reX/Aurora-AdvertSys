@@ -1,6 +1,5 @@
 ﻿using Application.Advert.DTOs;
 using AutoMapper;
-using Core.Helpers;
 
 namespace Application.Advert
 {

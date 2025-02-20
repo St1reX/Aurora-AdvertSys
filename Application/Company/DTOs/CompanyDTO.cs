@@ -9,6 +9,7 @@ namespace Application.Company.DTOs
 {
     public class CompanyDTO
     {
+        public int CompanyID { get; set; }
         public string CompanyName { get; set; } = default!;
         public string Description { get; set; } = default!;
         public string Email { get; set; } = default!;

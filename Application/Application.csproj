@@ -25,6 +25,10 @@
   <ItemGroup>
     <Folder Include="Advert\Commands\" />
     <Folder Include="Company\Commands\" />
+    <Folder Include="ContractType\DTOs\" />
+    <Folder Include="EmploymentType\DTOs\" />
+    <Folder Include="JobSector\DTOs\" />
+    <Folder Include="SeniorityLevel\DTOs\" />
   </ItemGroup>
 
 </Project>

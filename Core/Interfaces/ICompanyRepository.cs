@@ -11,5 +11,6 @@ namespace Core.Interfaces
     {
         Task<ICollection<Company>?> GetAllCompanies();
         Task<Company?> GetCompanyById(int companyID);
+        Task<ICollection<Company>?> GetCompaniesAutocomplete(string companyName);
     }
 }

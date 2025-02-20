@@ -33,6 +33,18 @@ namespace REST_API.Controllers
             return Ok(JsonSerializer.Serialize(adverts));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDetails(int id)
+        {
+            var advertDetails = await mediator.Send(new GetAdvertDetailsQuery { Id = id });
+
+            if (advertDetails == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(JsonSerializer.Serialize(advertDetails));
+        }
 
         [HttpGet("filter")]
         public async Task<IActionResult> GetFiltered([FromQuery] GetFilteredAdvertsQuery command)
@@ -47,35 +59,8 @@ namespace REST_API.Controllers
             return Ok(JsonSerializer.Serialize(adverts));
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDetails(int id)
-        {
-            var advertDetails = await mediator.Send(new GetAdvertDetailsQuery { Id = id });
+        
+        
 
-            if (advertDetails == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(JsonSerializer.Serialize(advertDetails));
-        }
-
-
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

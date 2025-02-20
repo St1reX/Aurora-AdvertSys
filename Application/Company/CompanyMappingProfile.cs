@@ -14,6 +14,9 @@ namespace Application.Company
         {
             CreateMap<Core.Entities.Shared.Company.Company, CompanyDTO>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.CompanyAddress));
+
+            CreateMap<Core.Entities.Shared.Company.Company, CompanySuggestionDTO>()
+                .ReverseMap();
         }
     }
 }

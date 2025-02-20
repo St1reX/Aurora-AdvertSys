@@ -27,6 +27,17 @@ namespace Infrastructure.Repositories
             return companies;
         }
 
+        public async Task<ICollection<Company>?> GetCompaniesAutocomplete(string companyName)
+        {
+            var companies = await dbContext.Company
+                .Include(x => x.CompanyAddress)
+                .Where(x => x.CompanyName.StartsWith(companyName))
+                .Take(5)
+                .ToListAsync();
+
+            return companies;
+        }
+
         public async Task<Company?> GetCompanyById(int companyID)
         {
             var company = await dbContext.Company
