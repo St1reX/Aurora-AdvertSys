@@ -30,6 +30,10 @@ namespace Infrastructure.Extensions
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IPositionRepository, PositionRepository>();
             services.AddScoped<IWorkModelRepository, WorkModelRepository>();
+            services.AddScoped<ISeniorityLevelRepository, SeniorityLevelRepository>();
+            services.AddScoped<IJobSectorRepository, JobSectorRepository>();
+            services.AddScoped<IEmploymentTypeRepository, EmploymentTypeRepository>();
+            services.AddScoped<IContractTypeRepository, ContractTypeRepository>();
 
             //Services
             services.AddScoped<ILocationService, GoogleMapsService>();

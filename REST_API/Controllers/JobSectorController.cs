@@ -1,11 +1,13 @@
-﻿using MediatR;
+﻿using Application.JobSector.Queries.GetAllJobSectors;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace REST_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/job-sector")]
     [ApiController]
     public class JobSectorController : ControllerBase
     {
@@ -20,7 +22,9 @@ namespace REST_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok();
+            var jobSectors = await mediator.Send(new GetAllJobSectorsQuery());
+
+            return Ok(JsonSerializer.Serialize(jobSectors));
         }
     }
 }

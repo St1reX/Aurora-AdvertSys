@@ -1,11 +1,13 @@
-﻿using MediatR;
+﻿using Application.EmploymentType.Queries.GetAllEmploymentTypes;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace REST_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/employment-type")]
     [ApiController]
     public class EmploymentTypeController : ControllerBase
     {
@@ -20,7 +22,8 @@ namespace REST_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok();
+            var employmentTypes = await mediator.Send(new GetAllEmploymentTypesQuery());
+            return Ok(JsonSerializer.Serialize(employmentTypes));
         }
     }
 }
