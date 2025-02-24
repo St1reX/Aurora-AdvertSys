@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class AuroraDbContext : DbContext
+    public class AuroraDbContext : IdentityDbContext<User>
     {
         public AuroraDbContext(DbContextOptions<AuroraDbContext> options) : base(options)
         {
