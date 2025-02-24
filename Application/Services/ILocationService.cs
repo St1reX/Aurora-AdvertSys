@@ -1,5 +1,5 @@
-﻿using Application.Adress.DTOs;
-using Application.Advert.DTOs;
+﻿using Application.AdvertDependent.Advert.DTOs;
+using Application.Shared.Address.DTOs;
 using Core.Entities.UserDependent;
 using System;
 using System.Collections.Generic;

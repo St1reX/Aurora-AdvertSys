@@ -1,5 +1,5 @@
-﻿using Application.Advert.Queries.GetAllAdverts;
-using Application.Advert.Queries.GetFilteredAdverts;
+﻿using Application.AdvertDependent.Advert.Queries.GetAllAdverts;
+using Application.AdvertDependent.Advert.Queries.GetFilteredAdverts;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;

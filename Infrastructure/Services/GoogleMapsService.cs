@@ -1,5 +1,5 @@
-﻿using Application.Adress.DTOs;
-using Application.Services;
+﻿using Application.Services;
+using Application.Shared.Address.DTOs;
 using Core.Entities.UserDependent;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;

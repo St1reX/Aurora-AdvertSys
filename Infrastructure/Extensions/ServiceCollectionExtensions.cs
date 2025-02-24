@@ -1,8 +1,6 @@
 ﻿using Application.Services;
-using Core.Interfaces;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Seeders;
-using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,15 +23,9 @@ namespace Infrastructure.Extensions
             services.AddScoped<AuroraBasicSeeder>();
 
             //Repositories
-            services.AddScoped<IAdvertRepository, AdvertRepository>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
-            services.AddScoped<IPositionRepository, PositionRepository>();
-            services.AddScoped<IWorkModelRepository, WorkModelRepository>();
-            services.AddScoped<ISeniorityLevelRepository, SeniorityLevelRepository>();
-            services.AddScoped<IJobSectorRepository, JobSectorRepository>();
-            services.AddScoped<IEmploymentTypeRepository, EmploymentTypeRepository>();
-            services.AddScoped<IContractTypeRepository, ContractTypeRepository>();
+            services.AddAdvertDependentInfrastructure();
+            services.AddUserDependentInfrastructure();
+            services.AddSharedInfrastructure();
 
             //Services
             services.AddScoped<ILocationService, GoogleMapsService>();
