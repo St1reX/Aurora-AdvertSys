@@ -1,16 +1,11 @@
-﻿using Core.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Infrastructure.Persistence.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class AuroraDbContext : IdentityDbContext<User>
+    public class AuroraDbContext : IdentityDbContext<ApplicationUser>
     {
         public AuroraDbContext(DbContextOptions<AuroraDbContext> options) : base(options)
         {
@@ -18,7 +13,6 @@ namespace Infrastructure.Persistence
         }
 
         //MAIN ENTITIES
-        public DbSet<Core.Entities.User> User { get; set; }
         public DbSet<Core.Entities.Advert> Advert { get; set; }
 
         //ADVERT DEPENDENT ENTITIES

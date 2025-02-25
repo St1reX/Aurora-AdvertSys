@@ -18,24 +18,7 @@ namespace Infrastructure.Persistence.Seeders
 
         public async Task Seed()
         {
-            if (!dbContext.User.Any())
-            {
-                var defaultUser = new Core.Entities.User()
-                {
-                    FirstName = "Jakub",
-                    LastName = "Uryga",
-                    Email = "urygajakub@gmail.com",
-                    Password = "SAMPLEHASHEDPASSWORD",
-                    ProfilePicturePath = "profile.jpg",
-                    CVPath = "cv.pdf",
-                    WorkSummary = "I am a software developer",
-                    PositionID = 1,
-                    CompanyID = 1,
-                    UserAddressID = 1
-                };
-
-                dbContext.User.Add(defaultUser);
-            }
+            
 
             if (!dbContext.Advert.Any())
             {

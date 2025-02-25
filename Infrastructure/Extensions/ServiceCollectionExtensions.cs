@@ -1,7 +1,9 @@
 ﻿using Application.Services;
 using Infrastructure.Persistence;
+using Infrastructure.Persistence.Identity;
 using Infrastructure.Persistence.Seeders;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,10 @@ namespace Infrastructure.Extensions
             //DB Context
             services.AddDbContext<AuroraDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Aurora")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AuroraDbContext>()
+                .AddDefaultTokenProviders();
 
             //HTTP Client
             services.AddHttpClient();
