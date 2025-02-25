@@ -1,14 +1,6 @@
-﻿using Core.Entities.Shared.Company;
-using Core.Entities.Shared;
-using Core.Entities.UserDependent.Education;
+﻿using Core.Entities.UserDependent.Education;
 using Core.Entities.UserDependent.Language;
 using Core.Entities.UserDependent.Skill;
-using Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Seeders
 {

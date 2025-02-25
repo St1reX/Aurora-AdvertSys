@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuroraDbContext))]
-    [Migration("20250225104015_IdentityIntroduction")]
+    [Migration("20250225111553_IdentityIntroduction")]
     partial class IdentityIntroduction
     {
         /// <inheritdoc />
