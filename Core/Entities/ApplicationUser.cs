@@ -13,15 +13,15 @@ namespace Core.Entities
     {
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
-        public string ProfilePicturePath { get; set; } = default!;
-        public string CVPath { get; set; } = default!;
-        public string WorkSummary { get; set; } = default!;
+        public string? ProfilePicturePath { get; set; }
+        public string? CVPath { get; set; }
+        public string? WorkSummary { get; set; }
 
-        public int PositionID { get; set; }
+        public int? PositionID { get; set; }
         public int? CompanyID { get; set; }
         public int UserAddressID { get; set; }
 
-        public Position Position { get; set; } = default!;
+        public Position? Position { get; set; }
         public Company? Company { get; set; }
         public Address UserAddress { get; set; } = default!;
 

@@ -9,7 +9,7 @@ namespace Core.Interfaces.Shared
 {
     public interface IAddressRepository
     {
-        Task SaveAddress(Address address);
+        Task<int> SaveAddress(Address address);
         Task<Address> GetAddressByID(int id);
     }
 }

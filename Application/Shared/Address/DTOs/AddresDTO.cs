@@ -12,8 +12,8 @@ namespace Application.Shared.Address.DTOs
         public string? Street { get; set; }
         public string? City { get; set; }
         public string? Region { get; set; }
-        public string Country { get; set; } = default!;
-        public decimal Latitude { get; set; } = default!;
-        public decimal Longitude { get; set; } = default!;
+        public string? Country { get; set; }
+        public decimal Latitude { get; set; } = 0;
+        public decimal Longitude { get; set; } = 0;
     }
 }

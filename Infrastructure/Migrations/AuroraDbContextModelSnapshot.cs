@@ -105,7 +105,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("WorkModelID");
 
-                    b.ToTable("Advert");
+                    b.ToTable("Advert", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.AdvertDuty", b =>
@@ -128,7 +128,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("DutyID");
 
-                    b.ToTable("AdvertDuty");
+                    b.ToTable("AdvertDuty", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.Benefit", b =>
@@ -151,7 +151,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AdvertID");
 
-                    b.ToTable("Benefit");
+                    b.ToTable("Benefit", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.ContractType", b =>
@@ -169,7 +169,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("ContractTypeID");
 
-                    b.ToTable("ContractType");
+                    b.ToTable("ContractType", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.EmploymentType", b =>
@@ -187,7 +187,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("EmploymentTypeID");
 
-                    b.ToTable("EmploymentType");
+                    b.ToTable("EmploymentType", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.JobSector", b =>
@@ -205,7 +205,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("JobSectorID");
 
-                    b.ToTable("JobSector");
+                    b.ToTable("JobSector", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.Requirment", b =>
@@ -228,7 +228,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AdvertID");
 
-                    b.ToTable("Requirment");
+                    b.ToTable("Requirment", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.SeniorityLevel", b =>
@@ -246,7 +246,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("SeniorityLevelID");
 
-                    b.ToTable("SeniorityLevel");
+                    b.ToTable("SeniorityLevel", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.WorkDays", b =>
@@ -264,7 +264,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("WorkDaysID");
 
-                    b.ToTable("WorkDays");
+                    b.ToTable("WorkDays", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.WorkModel", b =>
@@ -282,7 +282,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("WorkModelID");
 
-                    b.ToTable("WorkModel");
+                    b.ToTable("WorkModel", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.ApplicationUser", b =>
@@ -294,7 +294,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CVPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CompanyID")
@@ -342,11 +341,10 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PositionID")
+                    b.Property<int?>("PositionID")
                         .HasColumnType("int");
 
                     b.Property<string>("ProfilePicturePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -363,7 +361,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("WorkSummary")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -420,7 +417,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("AddressID");
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Shared.Company.Company", b =>
@@ -457,7 +454,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CompanyAddressID");
 
-                    b.ToTable("Company");
+                    b.ToTable("Company", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Shared.Duty", b =>
@@ -475,7 +472,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("DutyID");
 
-                    b.ToTable("Duty");
+                    b.ToTable("Duty", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Shared.Position", b =>
@@ -493,7 +490,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("PositionID");
 
-                    b.ToTable("Position");
+                    b.ToTable("Position", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Course", b =>
@@ -528,7 +525,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Education.Education", b =>
@@ -573,7 +570,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Education");
+                    b.ToTable("Education", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Education.EducationLevel", b =>
@@ -591,7 +588,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("EducationLevelID");
 
-                    b.ToTable("EducationLevel");
+                    b.ToTable("EducationLevel", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Experience.Experience", b =>
@@ -626,7 +623,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Experience");
+                    b.ToTable("Experience", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Experience.ExperienceDuty", b =>
@@ -649,7 +646,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ExperienceID");
 
-                    b.ToTable("ExperienceDuty");
+                    b.ToTable("ExperienceDuty", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Language.Language", b =>
@@ -667,7 +664,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("LanguageID");
 
-                    b.ToTable("Language");
+                    b.ToTable("Language", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Language.LanguageLevel", b =>
@@ -685,7 +682,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("LanguageLevelID");
 
-                    b.ToTable("LanguageLevel");
+                    b.ToTable("LanguageLevel", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Language.UserLanguage", b =>
@@ -714,7 +711,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserLanguage");
+                    b.ToTable("UserLanguage", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Link", b =>
@@ -737,7 +734,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Link");
+                    b.ToTable("Link", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Skill.Skill", b =>
@@ -755,7 +752,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("SkillID");
 
-                    b.ToTable("Skill");
+                    b.ToTable("Skill", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.UserDependent.Skill.UserSkill", b =>
@@ -783,7 +780,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserSkill");
+                    b.ToTable("UserSkill", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1043,9 +1040,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Core.Entities.Shared.Position", "Position")
                         .WithMany("Users")
-                        .HasForeignKey("PositionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PositionID");
 
                     b.HasOne("Core.Entities.Shared.Address", "UserAddress")
                         .WithMany("Users")

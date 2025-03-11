@@ -1,15 +1,8 @@
 ﻿using Application.Services;
 using Application.Shared.Address.DTOs;
-using Core.Entities.UserDependent;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {

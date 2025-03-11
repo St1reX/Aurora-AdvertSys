@@ -20,6 +20,7 @@ namespace Infrastructure.Extensions
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AuroraDbContext>()
+                .AddApiEndpoints()
                 .AddDefaultTokenProviders();
 
             //HTTP Client

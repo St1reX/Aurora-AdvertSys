@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuroraDbContext))]
-    [Migration("20250311163635_identity-user-fix")]
+    [Migration("20250311173433_identity-user-fix")]
     partial class identityuserfix
     {
         /// <inheritdoc />
@@ -297,7 +297,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CVPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CompanyID")
@@ -345,11 +344,10 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PositionID")
+                    b.Property<int?>("PositionID")
                         .HasColumnType("int");
 
                     b.Property<string>("ProfilePicturePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -366,7 +364,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("WorkSummary")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1046,9 +1043,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Core.Entities.Shared.Position", "Position")
                         .WithMany("Users")
-                        .HasForeignKey("PositionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PositionID");
 
                     b.HasOne("Core.Entities.Shared.Address", "UserAddress")
                         .WithMany("Users")

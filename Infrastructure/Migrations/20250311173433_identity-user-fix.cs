@@ -11,6 +11,10 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUsers_Position_PositionID",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_Course_AspNetUsers_ApplicationUserId",
                 table: "Course");
 
@@ -157,6 +161,45 @@ namespace Infrastructure.Migrations
                 oldClrType: typeof(int),
                 oldType: "int");
 
+            migrationBuilder.AlterColumn<string>(
+                name: "WorkSummary",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "ProfilePicturePath",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "PositionID",
+                table: "AspNetUsers",
+                type: "int",
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "CVPath",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_Position_PositionID",
+                table: "AspNetUsers",
+                column: "PositionID",
+                principalTable: "Position",
+                principalColumn: "PositionID");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Course_AspNetUsers_UserID",
                 table: "Course",
@@ -204,11 +247,25 @@ namespace Infrastructure.Migrations
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
+
+            ///ADDRESS
+            ///
+            migrationBuilder.AlterColumn<string>(
+                name: "Country",
+                table: "Address",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUsers_Position_PositionID",
+                table: "AspNetUsers");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Course_AspNetUsers_UserID",
                 table: "Course");
@@ -317,6 +374,46 @@ namespace Infrastructure.Migrations
                 type: "nvarchar(450)",
                 nullable: true);
 
+            migrationBuilder.AlterColumn<string>(
+                name: "WorkSummary",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "ProfilePicturePath",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<int>(
+                name: "PositionID",
+                table: "AspNetUsers",
+                type: "int",
+                nullable: false,
+                defaultValue: 0,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "CVPath",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
             migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
@@ -400,6 +497,14 @@ namespace Infrastructure.Migrations
                 name: "IX_User_UserAddressID",
                 table: "User",
                 column: "UserAddressID");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_Position_PositionID",
+                table: "AspNetUsers",
+                column: "PositionID",
+                principalTable: "Position",
+                principalColumn: "PositionID",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Course_AspNetUsers_ApplicationUserId",
@@ -490,6 +595,16 @@ namespace Infrastructure.Migrations
                 principalTable: "User",
                 principalColumn: "UserId",
                 onDelete: ReferentialAction.Cascade);
+
+            ///ADDRESS
+            ///
+            migrationBuilder.AlterColumn<string>(
+                name: "Country",
+                table: "Address",
+                type: "nvarchar(max)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
         }
     }
 }
