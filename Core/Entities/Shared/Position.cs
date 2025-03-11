@@ -10,6 +10,6 @@ namespace Core.Entities.Shared
         public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
 
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
-        public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
     }
 }

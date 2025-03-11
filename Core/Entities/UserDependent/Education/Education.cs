@@ -16,9 +16,9 @@ namespace Core.Entities.UserDependent.Education
         public DateTime EndDate { get; set; }
 
         public int EducationLevelID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; } = default!;
 
         public EducationLevel EducationLevel { get; set; } = default!;
-        public User User { get; set; } = default!;
+        public ApplicationUser User { get; set; } = default!;
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Application.Services;
 using Infrastructure.Persistence;
-using Infrastructure.Persistence.Identity;
 using Infrastructure.Persistence.Seeders;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Core.Entities;
 
 namespace Infrastructure.Extensions
 {

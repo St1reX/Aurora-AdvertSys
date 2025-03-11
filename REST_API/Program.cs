@@ -1,8 +1,6 @@
 using Application.Extensions;
 using Infrastructure.Extensions;
-using Infrastructure.Persistence.Identity;
 using Infrastructure.Persistence.Seeders;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

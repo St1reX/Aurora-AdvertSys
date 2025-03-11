@@ -9,11 +9,11 @@ namespace Core.Entities.UserDependent.Skill
     public class UserSkill
     {
         public int UserSkillID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; } = default!;
         public int SkillID { get; set; }
         public int SkillLevel { get; set; }
 
-        public User User { get; set; } = default!;
+        public ApplicationUser User { get; set; } = default!;
         public Skill Skill { get; set; } = default!;
     }
 }

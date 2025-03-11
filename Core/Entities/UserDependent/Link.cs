@@ -10,8 +10,8 @@ namespace Core.Entities.UserDependent
     {
         public int LinkID { get; set; }
         public string URL { get; set; } = default!;
-        public int UserID { get; set; }
+        public string UserID { get; set; } = default!;
 
-        public User User { get; set; } = default!;
+        public ApplicationUser User { get; set; } = default!;
     }
 }

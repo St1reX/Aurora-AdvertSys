@@ -17,11 +17,11 @@ namespace Core.Entities.UserDependent.Experience
 
         public int PositionID { get; set; }
         public int? CompanyID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; } = default!;
 
         public Position Position { get; set; } = default!;
         public Company? Company { get; set; } = default!;
-        public User User { get; set; } = default!;
+        public ApplicationUser User { get; set; } = default!;
 
         public ICollection<ExperienceDuty> ExperienceDuties{ get; set; } = new List<ExperienceDuty>();
     }

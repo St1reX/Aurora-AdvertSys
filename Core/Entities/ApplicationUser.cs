@@ -5,16 +5,14 @@ using Core.Entities.UserDependent.Education;
 using Core.Entities.UserDependent.Experience;
 using Core.Entities.UserDependent.Language;
 using Core.Entities.UserDependent.Skill;
+using Microsoft.AspNetCore.Identity;
 
 namespace Core.Entities
 {
-    public class User
+    public class ApplicationUser : IdentityUser
     {
-        public int UserId { get; set; } = default!;
-        public string UserName { get; set; } = default!;
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
-        public string Email { get; set; } = default!;
         public string ProfilePicturePath { get; set; } = default!;
         public string CVPath { get; set; } = default!;
         public string WorkSummary { get; set; } = default!;

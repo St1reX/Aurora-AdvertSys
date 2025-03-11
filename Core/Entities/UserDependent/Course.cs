@@ -14,8 +14,8 @@ namespace Core.Entities.UserDependent
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public int UserID { get; set; }
+        public string UserID { get; set; } = default!;
 
-        public User User { get; set; } = default!;
+        public ApplicationUser User { get; set; } = default!;
     }
 }
