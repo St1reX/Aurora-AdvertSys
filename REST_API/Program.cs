@@ -1,5 +1,6 @@
 using Application.Extensions;
 using Core.Entities;
+using FluentValidation.AspNetCore;
 using Infrastructure.Extensions;
 using Infrastructure.Persistence.Seeders;
 

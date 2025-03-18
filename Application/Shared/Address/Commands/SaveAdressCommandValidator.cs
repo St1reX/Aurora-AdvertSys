@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Shared.Address.Commands
 {
-    public class SaveAdressCommandValidator : AbstractValidator<AddressDTO>
+    public class SaveAdressCommandValidator : AbstractValidator<SaveAdressCommand>
     {
         public SaveAdressCommandValidator()
         {

@@ -1,7 +1,5 @@
 ﻿using Application.Shared.Address.Commands;
-using Application.Shared.Company.Queries.GetAllCompanies;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace REST_API.Controllers.Shared
@@ -21,6 +19,11 @@ namespace REST_API.Controllers.Shared
         [HttpPost]
         public async Task<IActionResult> SaveAddress(SaveAdressCommand command)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 await mediator.Send(command);

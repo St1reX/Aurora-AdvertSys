@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.AdvertDependent.Advert.Queries.GetFilteredAdverts
 {
-    public class GetFilteredAdvertsQueryValidator : AbstractValidator<AdvertFilter>
+    public class GetFilteredAdvertsQueryValidator : AbstractValidator<GetFilteredAdvertsQuery>
     {
         public GetFilteredAdvertsQueryValidator()
         {

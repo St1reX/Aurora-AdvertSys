@@ -5,9 +5,9 @@
         public int AddressID { get; set; }
         public string? StreetNumber { get; set; }
         public string? Street { get; set; }
-        public string? City { get; set; }
+        public string City { get; set; } = default!;
         public string? Region { get; set; }
-        public string? Country { get; set; }
+        public string Country { get; set; } = default!;
         public decimal Latitude { get; set; } = 0;
         public decimal Longitude { get; set; } = 0;
 
