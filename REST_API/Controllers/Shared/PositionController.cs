@@ -1,6 +1,7 @@
 ﻿using Application.Shared.Position.Queries.GetAllPositions;
 using Application.Shared.Position.Queries.GetPositionsAutocomplete;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -28,6 +29,7 @@ namespace REST_API.Controllers.Shared
         }
 
         [HttpGet("search")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetRowsToAutocomplete(string? positionName)
         {
             var positions = await mediator.Send(new GetPositionsAutocompleteQuery { PositionName = positionName });
