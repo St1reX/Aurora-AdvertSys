@@ -2,12 +2,15 @@
 using Core.Entities;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Seeders;
+using Infrastructure.Security;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Infrastructure.Extensions
 {
@@ -31,14 +34,22 @@ namespace Infrastructure.Extensions
             services.AddHttpClient();
 
             //Authentication||Authorization
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                    .AddCookie(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        options.LoginPath = "/user/login";
-                        options.LogoutPath = "/user/logout";
-                        options.AccessDeniedPath = "/user/accessDenied";
-                    });
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["JWT:Issuer"],
+                        ValidAudience = configuration["JWT:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]!))
+                    };
+                });
             services.AddAuthorization();
+            services.AddScoped<IJWTGenerator, JWTGenerator>();
 
             //Repositories
             services.AddAdvertDependentInfrastructure();

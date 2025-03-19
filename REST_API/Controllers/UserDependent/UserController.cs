@@ -2,6 +2,7 @@
 using Application.UserDependent.User.DTOs;
 using AutoMapper;
 using Core.Entities;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,15 @@ namespace REST_API.Controllers.UserDependent
         private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IJWTGenerator jWTGenerator;
 
-        public UserController(IMediator mediator, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public UserController(IMediator mediator, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IJWTGenerator jWTGenerator)
         {
             this.mediator = mediator;
             this.mapper = mapper;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.jWTGenerator = jWTGenerator;
         }
 
         [HttpPost]
@@ -48,14 +51,17 @@ namespace REST_API.Controllers.UserDependent
         [Route("login")]
         public async Task<IActionResult> Login(UserLoginDTO userLoginDTO)
         {
-            var result = await signInManager.PasswordSignInAsync(userLoginDTO.Email, userLoginDTO.Password, false, false);
+            var result = await signInManager.PasswordSignInAsync(userLoginDTO.UserName, userLoginDTO.Password, false, false);
 
             if (!result.Succeeded)
             {
                 return BadRequest("Invalid login attempt");
             }
 
-            return Ok(result);
+            var user = await userManager.FindByNameAsync(userLoginDTO.UserName);
+            var token = jWTGenerator.GenerateToken(user!);
+
+            return Ok(token);
         }
 
     }
