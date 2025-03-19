@@ -1,12 +1,13 @@
 ﻿using Application.Services;
+using Core.Entities;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Seeders;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Core.Entities;
 
 namespace Infrastructure.Extensions
 {
@@ -23,11 +24,21 @@ namespace Infrastructure.Extensions
                 .AddApiEndpoints()
                 .AddDefaultTokenProviders();
 
+            //DB Seeders
+            services.AddScoped<AuroraBasicSeeder>();
+
             //HTTP Client
             services.AddHttpClient();
 
-            //DB Seeders
-            services.AddScoped<AuroraBasicSeeder>();
+            //Authentication||Authorization
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
+                    {
+                        options.LoginPath = "/user/login";
+                        options.LogoutPath = "/user/logout";
+                        options.AccessDeniedPath = "/user/accessDenied";
+                    });
+            services.AddAuthorization();
 
             //Repositories
             services.AddAdvertDependentInfrastructure();

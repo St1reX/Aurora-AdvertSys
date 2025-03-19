@@ -3,13 +3,11 @@ using Core.Entities;
 using FluentValidation.AspNetCore;
 using Infrastructure.Extensions;
 using Infrastructure.Persistence.Seeders;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication();
 
 
 builder.Services.AddControllers();

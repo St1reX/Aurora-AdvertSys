@@ -1,11 +1,8 @@
 ﻿using Application.Shared.Address.Commands;
-using Application.Shared.Address.DTOs;
-using Application.Shared.Company.Queries.GetAllCompanies;
 using Application.UserDependent.User.DTOs;
 using AutoMapper;
 using Core.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
