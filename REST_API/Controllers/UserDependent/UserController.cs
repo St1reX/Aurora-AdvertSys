@@ -1,10 +1,6 @@
-﻿using Application.Shared.Address.Commands;
-using Application.UserDependent.User.DTOs;
-using AutoMapper;
-using Core.Entities;
-using Infrastructure.Security;
+﻿using Application.UserDependent.User.Commands.LoginUser;
+using Application.UserDependent.User.Commands.RegisterUser;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace REST_API.Controllers.UserDependent
@@ -14,30 +10,16 @@ namespace REST_API.Controllers.UserDependent
     public class UserController : Controller
     {
         private readonly IMediator mediator;
-        private readonly IMapper mapper;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IJWTGenerator jWTGenerator;
-
-        public UserController(IMediator mediator, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IJWTGenerator jWTGenerator)
+        public UserController(IMediator mediator)
         {
             this.mediator = mediator;
-            this.mapper = mapper;
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.jWTGenerator = jWTGenerator;
         }
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register(UserRegisterDTO userRegisterDTO)
+        public async Task<IActionResult> Register(RegisterUserCommand command)
         {
-            var userAddressCommand = mapper.Map<SaveAdressCommand>(userRegisterDTO);
-            var addressID = await mediator.Send(userAddressCommand);
-            userRegisterDTO.UserAddressID = addressID;
-
-            var appUser = mapper.Map<ApplicationUser>(userRegisterDTO);
-            var result = await userManager.CreateAsync(appUser, userRegisterDTO.Password);
+            var result = await mediator.Send(command);
 
             if(!result.Succeeded)
             {
@@ -49,19 +31,11 @@ namespace REST_API.Controllers.UserDependent
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(UserLoginDTO userLoginDTO)
+        public async Task<IActionResult> Login(LoginUserCommand command)
         {
-            var result = await signInManager.PasswordSignInAsync(userLoginDTO.UserName, userLoginDTO.Password, false, false);
+            var result = await mediator.Send(command);
 
-            if (!result.Succeeded)
-            {
-                return BadRequest("Invalid login attempt");
-            }
-
-            var user = await userManager.FindByNameAsync(userLoginDTO.UserName);
-            var token = jWTGenerator.GenerateToken(user!);
-
-            return Ok(token);
+            return Ok(result);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using Application.UserDependent.User.DTOs;
+﻿using Application.UserDependent.User.Commands.RegisterUser;
+using Application.UserDependent.User.DTOs;
 using AutoMapper;
 using Core.Entities;
 using System;
@@ -14,6 +15,9 @@ namespace Application.UserDependent.User
         public UserMappingProfile() 
         {
            CreateMap<UserRegisterDTO, ApplicationUser>()
+                .ReverseMap();
+
+            CreateMap<RegisterUserCommand, ApplicationUser>()
                 .ReverseMap();
         }
     }
