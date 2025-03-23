@@ -22,7 +22,18 @@ namespace Infrastructure.Extensions
             services.AddDbContext<AuroraDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Aurora")));
 
+            //IDENTITY ADD || CONFIG
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.User.RequireUniqueEmail = true;
+            });
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AuroraDbContext>()
                 .AddApiEndpoints()
                 .AddDefaultTokenProviders();
@@ -40,6 +51,7 @@ namespace Infrastructure.Extensions
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;})
                 .AddJwtBearer(options =>
                 {
+                    options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,

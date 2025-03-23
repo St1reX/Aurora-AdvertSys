@@ -1,6 +1,6 @@
-﻿using Application.UserDependent.User.DTOs;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Entities;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -11,12 +11,14 @@ namespace Application.UserDependent.User.Commands.LoginUser
         private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IJWTGenerator jWTGenerator;
 
-        public LoginCommandHandler(IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public LoginCommandHandler(IMapper mapper, IJWTGenerator jWTGenerator, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             this.mapper = mapper;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.jWTGenerator = jWTGenerator;
         }
         public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {

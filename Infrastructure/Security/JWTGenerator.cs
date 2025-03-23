@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,10 +11,12 @@ namespace Infrastructure.Security
     public class JWTGenerator : IJWTGenerator
     {
         private readonly IConfiguration configuration;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public JWTGenerator(IConfiguration configuration)
+        public JWTGenerator(IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             this.configuration = configuration;
+            this.userManager = userManager;
         }
 
         public string GenerateToken(ApplicationUser applicationUser)
@@ -23,6 +26,11 @@ namespace Infrastructure.Security
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, applicationUser.Id!)
             };
+
+            foreach (var role in userManager.GetRolesAsync(applicationUser).Result)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]!));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
