@@ -27,9 +27,11 @@ namespace Infrastructure.Security
                 new Claim(JwtRegisteredClaimNames.Sub, applicationUser.Id!)
             };
 
+            Console.WriteLine("Role: ");
             foreach (var role in userManager.GetRolesAsync(applicationUser).Result)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role));
+                Console.WriteLine(role);
             }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]!));

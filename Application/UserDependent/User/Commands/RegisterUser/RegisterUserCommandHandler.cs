@@ -28,6 +28,7 @@ namespace Application.UserDependent.User.Commands.RegisterUser
 
             var appUser = mapper.Map<ApplicationUser>(request);
             var result = await userManager.CreateAsync(appUser, request.Password);
+            await userManager.AddToRoleAsync(appUser, "Candidate");
 
             return result;
         }

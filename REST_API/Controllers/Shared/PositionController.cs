@@ -29,7 +29,7 @@ namespace REST_API.Controllers.Shared
         }
 
         [HttpGet("search")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Candidate")]
         public async Task<IActionResult> GetRowsToAutocomplete(string? positionName)
         {
             var positions = await mediator.Send(new GetPositionsAutocompleteQuery { PositionName = positionName });
