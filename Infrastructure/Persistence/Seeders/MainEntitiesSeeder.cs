@@ -43,7 +43,17 @@ namespace Infrastructure.Persistence.Seeders
                 };
                 dbContext.Advert.Add(defaultAdvert);
 
-                //TODO: Rethink problem with FK keys when seeding
+
+                //Placed here because advert is needed to be seeded first
+                var defaultAdvertApplication = new Core.Entities.AdvertDependent.AdvertApplication()
+                {
+                    AdvertID = 1,
+                    UserID = "1",
+                    ApplicationDate = DateTime.Now,
+                    IsAccepted = false,
+                    IsRejected = false,
+                    IsPending = true
+                };
 
                 await dbContext.SaveChangesAsync();
             }

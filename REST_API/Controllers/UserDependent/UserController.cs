@@ -26,7 +26,7 @@ namespace REST_API.Controllers.UserDependent
                 return BadRequest(result.Errors);
             }
 
-            return Ok();
+            return Created();
         }
 
         [HttpPost]

@@ -75,6 +75,11 @@ namespace Infrastructure.Persistence.EntitiesConfiguration
                 .WithMany(y => y.Adverts)
                 .HasForeignKey(x => x.AdvertAddressID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserID)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

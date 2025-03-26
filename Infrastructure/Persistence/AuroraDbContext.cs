@@ -16,6 +16,7 @@ namespace Infrastructure.Persistence
         public DbSet<Core.Entities.Advert> Advert { get; set; }
 
         //ADVERT DEPENDENT ENTITIES
+        public DbSet<Core.Entities.AdvertDependent.AdvertApplication> AdvertApplication { get; set; }
         public DbSet<Core.Entities.AdvertDependent.AdvertDuty> AdvertDuty { get; set; }
         public DbSet<Core.Entities.AdvertDependent.Benefit> Benefit { get; set; }
         public DbSet<Core.Entities.AdvertDependent.Requirment> Requirment { get; set; }

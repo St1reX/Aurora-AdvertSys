@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuroraDbContext))]
-    [Migration("20250319110624_minor-changes")]
-    partial class minorchanges
+    [Migration("20250326195908_advertApplication-table-add")]
+    partial class advertApplicationtableadd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ApplicationAmount")
                         .HasColumnType("int");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("CVMandatory")
                         .HasColumnType("bit");
 
@@ -58,6 +61,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateOnly>("ExpirationDate")
                         .HasColumnType("date");
+
+                    b.Property<int>("ExposuresAmount")
+                        .HasColumnType("int");
 
                     b.Property<int>("JobSectorID")
                         .HasColumnType("int");
@@ -76,6 +82,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("SeniorityLevelID")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("WorkDaysID")
                         .HasColumnType("int");
 
@@ -92,6 +101,8 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AdvertAddressID");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("CompanyID");
 
                     b.HasIndex("ContractTypeID");
@@ -104,11 +115,49 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("SeniorityLevelID");
 
+                    b.HasIndex("UserID");
+
                     b.HasIndex("WorkDaysID");
 
                     b.HasIndex("WorkModelID");
 
                     b.ToTable("Advert");
+                });
+
+            modelBuilder.Entity("Core.Entities.AdvertDependent.AdvertApplication", b =>
+                {
+                    b.Property<int>("AdvertApplicationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdvertApplicationID"));
+
+                    b.Property<int>("AdvertID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ApplicationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPending")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRejected")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AdvertApplicationID");
+
+                    b.HasIndex("AdvertID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("AdvertApplication");
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.AdvertDuty", b =>
@@ -928,6 +977,10 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Core.Entities.ApplicationUser", null)
+                        .WithMany("Adverts")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("Core.Entities.Shared.Company.Company", "Company")
                         .WithMany("Adverts")
                         .HasForeignKey("CompanyID")
@@ -964,6 +1017,11 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Core.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("Core.Entities.AdvertDependent.WorkDays", "WorkDays")
                         .WithMany("Adverts")
                         .HasForeignKey("WorkDaysID")
@@ -990,9 +1048,30 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("SeniorityLevel");
 
+                    b.Navigation("User");
+
                     b.Navigation("WorkDays");
 
                     b.Navigation("WorkModel");
+                });
+
+            modelBuilder.Entity("Core.Entities.AdvertDependent.AdvertApplication", b =>
+                {
+                    b.HasOne("Core.Entities.Advert", "Advert")
+                        .WithMany("AdvertApplications")
+                        .HasForeignKey("AdvertID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.ApplicationUser", "User")
+                        .WithMany("AdvertApplications")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Advert");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Core.Entities.AdvertDependent.AdvertDuty", b =>
@@ -1255,6 +1334,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Advert", b =>
                 {
+                    b.Navigation("AdvertApplications");
+
                     b.Navigation("AdvertDuties");
 
                     b.Navigation("Benefits");
@@ -1294,6 +1375,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.ApplicationUser", b =>
                 {
+                    b.Navigation("AdvertApplications");
+
+                    b.Navigation("Adverts");
+
                     b.Navigation("Courses");
 
                     b.Navigation("Educations");

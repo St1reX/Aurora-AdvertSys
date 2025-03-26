@@ -15,25 +15,26 @@ namespace REST_API.Controllers.Shared
             this.mediator = mediator;
         }
 
-        // GET: api/<AddressController>
-        [HttpPost]
-        public async Task<IActionResult> SaveAddress(SaveAdressCommand command)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/<AddressController>
+        //[HttpPost]
+        
+        //public async Task<IActionResult> SaveAddress(SaveAdressCommand command)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            try
-            {
-                await mediator.Send(command);
+        //    try
+        //    {
+        //        await mediator.Send(command);
 
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+        //        return Ok();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message);
+        //    }
+        //}
     }
 }

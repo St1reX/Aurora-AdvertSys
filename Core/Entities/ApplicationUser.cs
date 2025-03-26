@@ -1,4 +1,5 @@
-﻿using Core.Entities.Shared;
+﻿using Core.Entities.AdvertDependent;
+using Core.Entities.Shared;
 using Core.Entities.Shared.Company;
 using Core.Entities.UserDependent;
 using Core.Entities.UserDependent.Education;
@@ -31,5 +32,7 @@ namespace Core.Entities
         public ICollection<Course> Courses { get; set; } = new List<Course>();
         public ICollection<Education> Educations { get; set; } = new List<Education>();
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
+        public ICollection<Advert> Adverts { get; set; } = new List<Advert>();
+        public ICollection<AdvertApplication> AdvertApplications { get; set; } = new List<AdvertApplication>();
     }
 }
