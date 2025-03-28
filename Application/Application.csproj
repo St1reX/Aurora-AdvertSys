@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AdvertDependent\Advert\Commands\" />
     <Folder Include="Shared\Company\Commands\" />
   </ItemGroup>
 

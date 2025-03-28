@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Core.Entities;
+using Core.Entities.AdvertDependent;
 using Core.Helpers;
 using Core.Interfaces.AdvertDependent;
 using Core.Utilities;
@@ -22,6 +23,29 @@ namespace Infrastructure.Repositories.AdvertDependent
         {
             this.dbContext = dbContext;
             this.locationService = locationService;
+        }
+
+        public async Task AddAdvertExposure(int id)
+        {
+            var advertExposures = 
+                await dbContext.AdvertExposures.
+                FirstOrDefaultAsync(x => DateTime.Compare(x.ExposureDate, DateTime.Now.Date) == 0 && x.AdvertID == id);
+
+            if (advertExposures == null)
+            {
+                dbContext.AdvertExposures.Add(new AdvertExposures
+                {
+                    ExposureAmount = 1,
+                    ExposureDate = DateTime.Now.Date,
+                    AdvertID = id
+                });
+            }
+            else
+            {
+                advertExposures.ExposureAmount++;
+            }
+
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<Advert?> GetAdvertById(int id)

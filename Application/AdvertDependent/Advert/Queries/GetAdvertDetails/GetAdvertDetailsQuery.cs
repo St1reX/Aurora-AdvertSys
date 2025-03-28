@@ -10,6 +10,6 @@ namespace Application.AdvertDependent.Advert.Queries.GetAdvertDetails
 {
     public class GetAdvertDetailsQuery : IRequest<AdvertDetailsDTO>
     {
-        public int Id { get; set; }
+        public int AdvertID { get; set; }
     }
 }

@@ -50,7 +50,7 @@ namespace REST_API.Controllers.AdvertDependent
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDetails(int id)
         {
-            var advertDetails = await mediator.Send(new GetAdvertDetailsQuery { Id = id });
+            var advertDetails = await mediator.Send(new GetAdvertDetailsQuery { AdvertID = id });
 
             if (advertDetails == null)
             {

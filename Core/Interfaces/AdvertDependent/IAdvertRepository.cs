@@ -14,5 +14,6 @@ namespace Core.Interfaces.AdvertDependent
         Task<ICollection<Advert>?> GetAllAdverts(); 
         Task<ICollection<Advert>?> GetFilteredAdverts(AdvertFilter advertFilter);
         Task<Advert?> GetAdvertById(int id);
+        Task AddAdvertExposure(int id);
     }
 }

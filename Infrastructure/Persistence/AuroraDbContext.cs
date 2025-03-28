@@ -17,6 +17,7 @@ namespace Infrastructure.Persistence
 
         //ADVERT DEPENDENT ENTITIES
         public DbSet<Core.Entities.AdvertDependent.AdvertApplication> AdvertApplication { get; set; }
+        public DbSet<Core.Entities.AdvertDependent.AdvertExposures> AdvertExposures { get; set; }
         public DbSet<Core.Entities.AdvertDependent.AdvertDuty> AdvertDuty { get; set; }
         public DbSet<Core.Entities.AdvertDependent.Benefit> Benefit { get; set; }
         public DbSet<Core.Entities.AdvertDependent.Requirment> Requirment { get; set; }
@@ -34,6 +35,7 @@ namespace Infrastructure.Persistence
         public DbSet<Core.Entities.Shared.Address> Address { get; set; }
 
         //USER DEPENDENT ENTITIES
+        public DbSet<Core.Entities.UserDependent.RefreshToken> RefreshToken { get; set; }
         public DbSet<Core.Entities.UserDependent.Education.Education> Education { get; set; }
         public DbSet<Core.Entities.UserDependent.Education.EducationLevel> EducationLevel { get; set; }
         public DbSet<Core.Entities.UserDependent.Experience.Experience> Experience { get; set; }

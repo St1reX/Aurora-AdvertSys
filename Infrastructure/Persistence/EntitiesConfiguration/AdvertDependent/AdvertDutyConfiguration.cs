@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace Infrastructure.Persistence.EntitiesConfiguration.AdvertDependent
 {
     public class AdvertDutyConfiguration : IEntityTypeConfiguration<Core.Entities.AdvertDependent.AdvertDuty>
-    {public void Configure(EntityTypeBuilder<AdvertDuty> builder)
+    {
+        public void Configure(EntityTypeBuilder<AdvertDuty> builder)
         {
             builder.HasKey(x => x.AdvertDutyID);
             builder.Property(x => x.DutyID).IsRequired();

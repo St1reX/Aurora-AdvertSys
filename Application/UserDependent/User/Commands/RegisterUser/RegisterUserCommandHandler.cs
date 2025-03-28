@@ -1,5 +1,4 @@
 ﻿using Application.Shared.Address.Commands;
-using Application.UserDependent.User.DTOs;
 using AutoMapper;
 using Core.Entities;
 using MediatR;

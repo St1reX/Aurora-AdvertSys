@@ -15,7 +15,6 @@ namespace Core.Entities
         public TimeOnly WorkTimeTo { get; set; }
         public DateOnly ExpirationDate { get; set; }
         public int ApplicationAmount { get; set; }
-        public int ExposuresAmount { get; set; }
 
         public int CompanyID { get; set; }
         public int PositionID { get; set; }
@@ -44,5 +43,6 @@ namespace Core.Entities
         public ICollection<Requirment> Requirments { get; set; } = new List<Requirment>();
         public ICollection<AdvertDuty> AdvertDuties { get; set; } = new List<AdvertDuty>();
         public ICollection<AdvertApplication> AdvertApplications { get; set; } = new List<AdvertApplication>();
+        public ICollection<AdvertExposures> AdvertExposures { get; set; } = new List<AdvertExposures>();
     }
 }
