@@ -5,5 +5,6 @@ namespace Infrastructure.Security
     public interface IJWTGenerator
     {
         string GenerateToken(ApplicationUser applicationUser);
+        string GenerateRefreshToken();
     }
 }

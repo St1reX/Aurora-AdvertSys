@@ -47,5 +47,10 @@ namespace Infrastructure.Security
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public string GenerateRefreshToken()
+        {
+            return Guid.NewGuid().ToString();
+        }
     }
 }

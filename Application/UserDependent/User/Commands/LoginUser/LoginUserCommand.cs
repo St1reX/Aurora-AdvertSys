@@ -1,9 +1,10 @@
-﻿using Application.UserDependent.User.DTOs;
+﻿using Application.UserDependent.Token.DTOs;
+using Application.UserDependent.User.DTOs;
 using MediatR;
 
 namespace Application.UserDependent.User.Commands.LoginUser
 {
-    public class LoginUserCommand : UserLoginDTO, IRequest<string>
+    public class LoginUserCommand : UserLoginDTO, IRequest<AuthTokens>
     {
     }
 }

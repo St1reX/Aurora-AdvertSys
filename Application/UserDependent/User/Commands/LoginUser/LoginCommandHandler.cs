@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Application.UserDependent.Token.DTOs;
+using AutoMapper;
 using Core.Entities;
 using Infrastructure.Security;
 using MediatR;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Application.UserDependent.User.Commands.LoginUser
 {
-    public class LoginCommandHandler : IRequestHandler<LoginUserCommand, string>
+    public class LoginCommandHandler : IRequestHandler<LoginUserCommand, AuthTokens>
     {
         private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> userManager;
@@ -20,16 +21,15 @@ namespace Application.UserDependent.User.Commands.LoginUser
             this.signInManager = signInManager;
             this.jWTGenerator = jWTGenerator;
         }
-        public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        public async Task<AuthTokens> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var result = await signInManager.PasswordSignInAsync(request.UserName, request.Password, false, false);
             var user = await userManager.FindByNameAsync(request.UserName);
 
 
             var token = jWTGenerator.GenerateToken(user!);
-            return token;
-
-            throw new NotImplementedException();
+            var refreshToken = jWTGenerator.GenerateRefreshToken();
+            return new AuthTokens() { Token = token, RefreshToken = refreshToken};
         }
     }
 }

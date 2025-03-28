@@ -8,9 +8,9 @@ namespace Core.Entities.UserDependent
 {
     public class RefreshToken
     {
-        public Guid TokenID { get; set; }
+        public int TokenID { get; set; }
         public string Token { get; set; } = default!;
-        public Guid UserID { get; set; }
+        public string UserID { get; set; } = default!;
         public DateTime ExpiryDate { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; } = default!;
