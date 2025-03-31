@@ -1,4 +1,5 @@
-﻿using Application.UserDependent.User.Commands.LoginUser;
+﻿using Application.UserDependent.Token.DTOs;
+using Application.UserDependent.User.Commands.LoginUser;
 using Application.UserDependent.User.Commands.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,16 @@ namespace REST_API.Controllers.UserDependent
         [Route("login")]
         public async Task<IActionResult> Login(LoginUserCommand command)
         {
-            var result = await mediator.Send(command);
+            var result = new AuthTokens();
+
+            try
+            {
+                result = await mediator.Send(command);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(ex.Message);
+            }
 
             return Ok(result);
         }

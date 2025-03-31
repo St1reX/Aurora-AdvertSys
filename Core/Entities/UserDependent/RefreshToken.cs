@@ -13,6 +13,6 @@ namespace Core.Entities.UserDependent
         public string UserID { get; set; } = default!;
         public DateTime ExpiryDate { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; } = default!;
+        public ApplicationUser User { get; set; } = default!;
     }
 }

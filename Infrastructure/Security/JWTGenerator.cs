@@ -1,4 +1,6 @@
 ﻿using Core.Entities;
+using Core.Entities.UserDependent;
+using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -11,11 +13,13 @@ namespace Infrastructure.Security
     public class JWTGenerator : IJWTGenerator
     {
         private readonly IConfiguration configuration;
+        private readonly AuroraDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public JWTGenerator(IConfiguration configuration, UserManager<ApplicationUser> userManager)
+        public JWTGenerator(IConfiguration configuration, AuroraDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             this.configuration = configuration;
+            this.dbContext = dbContext;
             this.userManager = userManager;
         }
 
@@ -51,6 +55,15 @@ namespace Infrastructure.Security
         public string GenerateRefreshToken()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        public async Task SaveRefreshToken(string refreshToken, string userID)
+        {
+            var expireTime = DateTime.Now + TimeSpan.FromHours(System.Convert.ToInt32(configuration["JWT:RefreshExpireTime"]));
+
+            dbContext.RefreshToken.Add(new RefreshToken { Token = refreshToken, UserID = userID, ExpiryDate = expireTime});
+
+            await dbContext.SaveChangesAsync();
         }
     }
 }
