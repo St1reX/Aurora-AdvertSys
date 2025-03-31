@@ -11,9 +11,9 @@ using System.Text.Json;
 
 namespace REST_API.Controllers.AdvertDependent
 {
-    [Route("api/advert")]
+    [Route("api/adverts")]
     [ApiController]
-    public class AdvertController : ControllerBase
+    public class AdvertController : Controller
     {
         private readonly IMediator mediator;
         private readonly IMapper mapper;
@@ -30,7 +30,7 @@ namespace REST_API.Controllers.AdvertDependent
         {
             var adverts = await mediator.Send(new GetAllAdvertsQuery());
 
-            return Ok(JsonSerializer.Serialize(adverts));
+            return Ok(adverts);
         }
 
 
@@ -44,7 +44,7 @@ namespace REST_API.Controllers.AdvertDependent
 
             var adverts = await mediator.Send(command);
 
-            return Ok(JsonSerializer.Serialize(adverts));
+            return Ok(adverts);
         }
 
         [HttpGet("{id}")]
@@ -57,7 +57,7 @@ namespace REST_API.Controllers.AdvertDependent
                 return NotFound();
             }
 
-            return Ok(JsonSerializer.Serialize(advertDetails));
+            return Ok(advertDetails);
         }
     }
 }

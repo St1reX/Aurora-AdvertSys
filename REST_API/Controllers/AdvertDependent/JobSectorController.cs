@@ -24,7 +24,7 @@ namespace REST_API.Controllers.AdvertDependent
         {
             var jobSectors = await mediator.Send(new GetAllJobSectorsQuery());
 
-            return Ok(JsonSerializer.Serialize(jobSectors));
+            return Ok(jobSectors);
         }
     }
 }

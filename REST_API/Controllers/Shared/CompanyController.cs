@@ -11,7 +11,7 @@ namespace REST_API.Controllers.Shared
 {
     [Route("api/company")]
     [ApiController]
-    public class CompanyController : ControllerBase
+    public class CompanyController : Controller
     {
         private readonly IMediator mediator;
 
@@ -25,7 +25,7 @@ namespace REST_API.Controllers.Shared
         public async Task<IActionResult> GetAll()
         {
             var companies = await mediator.Send(new GetAllCompaniesQuery());
-            return Ok(JsonSerializer.Serialize(companies));
+            return Ok(companies);
         }
 
         // GET api/<CompanyController>/5
@@ -39,16 +39,14 @@ namespace REST_API.Controllers.Shared
                 return NotFound();
             }
 
-            return Ok(JsonSerializer.Serialize(company));
+            return Ok(company);
         }
 
         [HttpGet("search")]
         public async Task<IActionResult> GetRowsToAutocomplete(string? companyName)
         {
             var companies = await mediator.Send(new GetCompaniesAutocompleteQuery { CompanyName = companyName });
-            return Ok(JsonSerializer.Serialize(companies));
+            return Ok(companies);
         }
-
-       
     }
 }

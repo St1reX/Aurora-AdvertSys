@@ -23,7 +23,7 @@ namespace REST_API.Controllers.AdvertDependent
         public async Task<IActionResult> GetAll()
         {
             var contractTypes = await mediator.Send(new GetAllContractTypesQuery());
-            return Ok(JsonSerializer.Serialize(contractTypes));
+            return Ok(contractTypes);
         }
     }
 }

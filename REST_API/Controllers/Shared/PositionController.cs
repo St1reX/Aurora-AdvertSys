@@ -11,7 +11,7 @@ namespace REST_API.Controllers.Shared
 {
     [Route("api/position")]
     [ApiController]
-    public class PositionController : ControllerBase
+    public class PositionController : Controller
     {
         private readonly IMediator mediator;
 
@@ -25,15 +25,14 @@ namespace REST_API.Controllers.Shared
         public async Task<IActionResult> GetAll()
         {
             var positions = await mediator.Send(new GetAllPositionsQuery());
-            return Ok(JsonSerializer.Serialize(positions));
+            return Ok(positions);
         }
 
         [HttpGet("search")]
-        [Authorize(Roles = "Candidate")]
         public async Task<IActionResult> GetRowsToAutocomplete(string? positionName)
         {
             var positions = await mediator.Send(new GetPositionsAutocompleteQuery { PositionName = positionName });
-            return Ok(JsonSerializer.Serialize(positions));
+            return Ok(positions);
         }
 
     }

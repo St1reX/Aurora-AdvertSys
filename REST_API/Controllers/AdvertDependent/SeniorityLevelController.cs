@@ -23,7 +23,7 @@ namespace REST_API.Controllers.AdvertDependent
         public async Task<IActionResult> GetAll()
         {
             var seniorityLevels = await mediator.Send(new GetAllSeniorityLevelsQuery());
-            return Ok(JsonSerializer.Serialize(seniorityLevels));
+            return Ok(seniorityLevels);
         }
     }
 }
