@@ -1,8 +1,10 @@
-﻿using Application.UserDependent.Token.DTOs;
-using Application.UserDependent.User.Commands.LoginUser;
+﻿using Application.UserDependent.User.Commands.LoginUser;
 using Application.UserDependent.User.Commands.RegisterUser;
+using Application.UserDependent.Token.Commands.RefreshAccessToken;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Core.ValueObjects;
 
 namespace REST_API.Controllers.UserDependent
 {
@@ -48,5 +50,15 @@ namespace REST_API.Controllers.UserDependent
             return Ok(result);
         }
 
+
+        [HttpPost]
+        [Route("refresh-token")]
+        [Authorize]
+        public async Task<IActionResult> RefreshToken(string refreshToken)
+        {
+            var newToken = await mediator.Send(new RefreshAccessTokenCommand { RefreshToken = refreshToken });
+
+            return Ok(newToken);
+        }
     }
 }

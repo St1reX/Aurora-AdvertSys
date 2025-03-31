@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Shared\Company\Commands\" />
+    <Folder Include="UserDependent\Token\DTOs\" />
   </ItemGroup>
 
 </Project>

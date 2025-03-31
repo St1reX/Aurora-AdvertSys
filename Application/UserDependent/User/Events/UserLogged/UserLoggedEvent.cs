@@ -1,4 +1,4 @@
-﻿using Application.UserDependent.Token.DTOs;
+﻿using Core.ValueObjects;
 using MediatR;
 
 namespace Application.UserDependent.User.Events.UserLogged

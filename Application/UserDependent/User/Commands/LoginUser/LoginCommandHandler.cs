@@ -1,7 +1,7 @@
-﻿using Application.UserDependent.Token.DTOs;
-using Application.UserDependent.User.Events.UserLogged;
+﻿using Application.UserDependent.User.Events.UserLogged;
 using AutoMapper;
 using Core.Entities;
+using Core.ValueObjects;
 using Infrastructure.Security;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

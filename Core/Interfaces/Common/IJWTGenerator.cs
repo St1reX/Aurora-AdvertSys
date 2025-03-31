@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.ValueObjects;
 
 namespace Infrastructure.Security
 {
@@ -7,5 +8,6 @@ namespace Infrastructure.Security
         string GenerateToken(ApplicationUser applicationUser);
         string GenerateRefreshToken();
         Task SaveRefreshToken(string refreshToken, string userID);
+        Task<AuthTokens> RefreshAccessToken(string refreshToken);
     }
 }

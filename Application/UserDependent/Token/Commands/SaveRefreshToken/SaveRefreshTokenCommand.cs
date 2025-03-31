@@ -1,10 +1,5 @@
-﻿using Application.UserDependent.Token.DTOs;
+﻿using Core.ValueObjects;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UserDependent.Token.Commands.SaveRefreshToken
 {

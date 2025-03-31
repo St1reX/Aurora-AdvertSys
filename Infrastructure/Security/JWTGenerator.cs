@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Entities.UserDependent;
+using Core.ValueObjects;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -64,6 +65,30 @@ namespace Infrastructure.Security
             dbContext.RefreshToken.Add(new RefreshToken { Token = refreshToken, UserID = userID, ExpiryDate = expireTime});
 
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AuthTokens> RefreshAccessToken(string refreshToken)
+        {
+            var refreshToken_ = dbContext.RefreshToken.FirstOrDefault(x => x.Token == refreshToken && x.ExpiryDate >= DateTime.Now);
+
+            var authTokens = new AuthTokens();
+
+            if (refreshToken_ == null)
+            {
+                throw new Exception("Invalid refresh token.");
+            }
+            else
+            { 
+                refreshToken_.Token = GenerateRefreshToken();
+                refreshToken_.ExpiryDate = DateTime.Now + TimeSpan.FromHours(System.Convert.ToInt32(configuration["JWT:RefreshExpireTime"]));
+
+                authTokens.Token = GenerateToken(refreshToken_.User);
+                authTokens.RefreshToken = refreshToken_.Token;
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            return authTokens;
         }
     }
 }

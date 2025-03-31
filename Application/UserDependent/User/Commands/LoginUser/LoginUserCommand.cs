@@ -1,5 +1,5 @@
-﻿using Application.UserDependent.Token.DTOs;
-using Application.UserDependent.User.DTOs;
+﻿using Application.UserDependent.User.DTOs;
+using Core.ValueObjects;
 using MediatR;
 
 namespace Application.UserDependent.User.Commands.LoginUser
