@@ -30,17 +30,18 @@ namespace Application.UserDependent.User.Commands.LoginUser
 
             if (!result.Succeeded)
             {
-                throw new Exception("Unaouthorized. Incorrect mail or password.");
+                throw new UnauthorizedAccessException("Unaouthorized. Incorrect mail or password.");
             }
 
             var user = await userManager.FindByNameAsync(request.UserName);
 
 
             var token = jWTGenerator.GenerateToken(user!);
-            var refreshToken = jWTGenerator.GenerateRefreshToken();
+            var refreshToken = await jWTGenerator.SaveRefreshToken(user!.Id);
             AuthTokens authTokens = new AuthTokens() { Token = token, RefreshToken = refreshToken };
 
-            await mediator.Publish(new UserLoggedEvent { AuthTokens = authTokens, UserID = user!.Id });
+            //await mediator.Publish(new UserLoggedEvent { AuthTokens = authTokens, UserID = user!.Id });
+            //RETHINK: Can it be done in a better way? (invoking command in command problem)
 
             return authTokens;
         }

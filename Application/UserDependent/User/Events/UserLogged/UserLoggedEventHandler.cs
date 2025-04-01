@@ -19,7 +19,7 @@ namespace Application.UserDependent.User.Events.UserLogged
 
         public async Task Handle(UserLoggedEvent notification, CancellationToken cancellationToken)
         {
-            await mediator.Send(new SaveRefreshTokenCommand() { AuthTokens = notification.AuthTokens, UserID = notification.UserID});
+            await mediator.Send(new SaveRefreshTokenCommand() {UserID = notification.UserID});
         }
     }
 }

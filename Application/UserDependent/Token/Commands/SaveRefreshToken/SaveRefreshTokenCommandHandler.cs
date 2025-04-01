@@ -18,7 +18,7 @@ namespace Application.UserDependent.Token.Commands.SaveRefreshToken
         }
         public async Task Handle(SaveRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            await jWTGenerator.SaveRefreshToken(request.AuthTokens.RefreshToken, request.UserID);
+            await jWTGenerator.SaveRefreshToken(request.UserID);
         }
     }
 }

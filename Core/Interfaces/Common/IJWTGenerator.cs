@@ -7,7 +7,7 @@ namespace Infrastructure.Security
     {
         string GenerateToken(ApplicationUser applicationUser);
         string GenerateRefreshToken();
-        Task SaveRefreshToken(string refreshToken, string userID);
+        Task<string> SaveRefreshToken(string userID);
         Task<AuthTokens> RefreshAccessToken(string refreshToken);
     }
 }

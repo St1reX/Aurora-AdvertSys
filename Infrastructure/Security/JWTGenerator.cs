@@ -1,8 +1,10 @@
-﻿using Core.Entities;
+﻿using Application.Exceptions;
+using Core.Entities;
 using Core.Entities.UserDependent;
 using Core.ValueObjects;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -58,24 +60,36 @@ namespace Infrastructure.Security
             return Guid.NewGuid().ToString();
         }
 
-        public async Task SaveRefreshToken(string refreshToken, string userID)
+        public async Task<string> SaveRefreshToken(string userID)
         {
-            var expireTime = DateTime.Now + TimeSpan.FromHours(System.Convert.ToInt32(configuration["JWT:RefreshExpireTime"]));
+            var previousToken = dbContext.RefreshToken.FirstOrDefault(x => x.UserID == userID && x.ExpiryDate > DateTime.Now);
 
-            dbContext.RefreshToken.Add(new RefreshToken { Token = refreshToken, UserID = userID, ExpiryDate = expireTime});
+            if (previousToken == null)
+            {
+                var expireTime = DateTime.Now + TimeSpan.FromHours(System.Convert.ToInt32(configuration["JWT:RefreshExpireTime"]));
+                var token = GenerateRefreshToken();
+                dbContext.RefreshToken.Add(new RefreshToken { Token = token, UserID = userID, ExpiryDate = expireTime });
 
-            await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
+
+                return token;
+            }
+
+            return previousToken.Token;
+
         }
 
         public async Task<AuthTokens> RefreshAccessToken(string refreshToken)
         {
-            var refreshToken_ = dbContext.RefreshToken.FirstOrDefault(x => x.Token == refreshToken && x.ExpiryDate >= DateTime.Now);
+            var refreshToken_ = dbContext.RefreshToken.
+                Include(x => x.User).
+                FirstOrDefault(x => x.Token == refreshToken && x.ExpiryDate >= DateTime.Now);
 
             var authTokens = new AuthTokens();
 
             if (refreshToken_ == null)
             {
-                throw new Exception("Invalid refresh token.");
+                throw new InvalidRefreshTokenException("Invalid refresh token.");
             }
             else
             { 

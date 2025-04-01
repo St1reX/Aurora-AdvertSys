@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Core.ValueObjects;
+using Application.Exceptions;
 
 namespace REST_API.Controllers.UserDependent
 {
@@ -42,7 +43,7 @@ namespace REST_API.Controllers.UserDependent
             {
                 result = await mediator.Send(command);
             }
-            catch (Exception ex)
+            catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(ex.Message);
             }
@@ -54,9 +55,19 @@ namespace REST_API.Controllers.UserDependent
         [HttpPost]
         [Route("refresh-token")]
         [Authorize]
-        public async Task<IActionResult> RefreshToken(string refreshToken)
+        public async Task<IActionResult> RefreshToken(RefreshAccessTokenCommand command)
         {
-            var newToken = await mediator.Send(new RefreshAccessTokenCommand { RefreshToken = refreshToken });
+            var newToken = new AuthTokens();
+
+            try
+            {
+                newToken = await mediator.Send(command);
+            }
+            catch(InvalidRefreshTokenException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+
 
             return Ok(newToken);
         }
